@@ -1,12 +1,12 @@
 import { Container, Box, TextField, Grid, Avatar, Typography, Checkbox, Button } from '@mui/material';
 import FormControlLabel from '@mui/material/FormControlLabel';
 import KeyIcon from '@mui/icons-material/Key';
-import bgimg from '../images/backimg.jpg';
-import bg from '../images/signin.svg';
+import bgimg from './../../assests/images/backimg.jpg';
+import bg from './../../assests/images/signin.svg';
 import LockOpenIcon from '@mui/icons-material/LockOpen';
 import { Link } from '@mui/material';
 import React from 'react';
-import SignUpButton from '../css/Css';
+import SignUpButton from './../../assests/css/SIgnupButton'
 
 
 
