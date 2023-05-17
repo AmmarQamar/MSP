@@ -1,50 +1,30 @@
 import { Container, Box, TextField, Grid, Avatar, Typography, Checkbox, Button } from '@mui/material';
 import FormControlLabel from '@mui/material/FormControlLabel';
 import KeyIcon from '@mui/icons-material/Key';
+import LockOpenIcon from '@mui/icons-material/LockOpen';
+import { Link } from 'react-router-dom';
+import React from 'react';
 import bgimg from './../../assests/images/backimg.jpg';
 import bg from './../../assests/images/signin.svg';
-import LockOpenIcon from '@mui/icons-material/LockOpen';
-import { Link } from '@mui/material';
-import React from 'react';
 import SignUpButton from './../../assests/css/SIgnupButton'
+import { StyledLink } from '../../components/mui/Link';
+import { boxstyle, center } from './../../assests/css/MidBoxStyle'
 
 
 
-
-const boxstyle = {
-    position: "absolute",
-    top: "50%",
-    left: "50%",
-    transform: "translate(-50%, -50%)",
-    height: "70vh",
-    width: "75%",
-    // height: "70%",
-    bgcolor: "background.paper",
-    boxShadow: 24,
-};
-const center = {
-    width: "100%",
-    display: "flex",
-    justifyContent: "center",
-    alignItems: "center",
-    flexDirection: "column",
-};
 
 export const SellerLogin = () => {
     return (
 
         <div style={{
-            backgroundImage: `url(${bgimg})`,
-            backgroundSize: "cover",
-            height: "100vh",
             color: "#f5f5f5",
         }}>
-            <Box sx={boxstyle}>
+            <Box sx={boxstyle} >
                 <Grid container >
                     {/* For Image */}
-                    <Grid item xs={12} lg={6}>
+                    <Grid item xs={12} lg={6} >
                         <Box
-                            style={{
+                            sx={{
                                 backgroundImage: `url(${bg})`,
                                 backgroundSize: "cover",
                                 marginTop: "40px",
@@ -158,14 +138,18 @@ export const SellerLogin = () => {
                                             mt: 2,
                                             cursor: "pointer",
                                             textAlign: "center",
+                                            color: "white",
+                                            underline: "none",
 
                                         }}>
-                                        <Link href='/seller_register' sx={{
-                                            color: "white", '&:hover': {
-                                                color: "#FF9A01",
-                                                textDecoration: "none"
-                                            }
-                                        }}>Not registered yet? Create an Account</Link></Typography>
+                                        <StyledLink to='/sellerregister' sx={{
+                                            color: 'white',
+                                            textDecoration: 'none',
+                                            '&:hover': {
+                                                color: 'red',
+                                                textDecoration: 'none',
+                                            },
+                                        }}>Not registered yet? Create an Account</StyledLink></Typography>
                                 </Grid>
                             </Box>
                         </Box>

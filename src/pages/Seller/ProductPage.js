@@ -1,6 +1,6 @@
 import { useState } from 'react'
 import { Grid, Stack, Typography, Card, CardActions, CardContent, CardMedia, Button } from '@mui/material'
-import iphone from './../images/iphone11.jpg'
+// import iphone from './../images/iphone11.jpg'
 const ProductPage = () => {
     const [products] = useState([
         { id: 1, name: 'Product 1', des: 'Mobile', image: 'iphone', price: 10 },

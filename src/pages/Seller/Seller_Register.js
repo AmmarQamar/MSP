@@ -1,14 +1,12 @@
 import { Container, Box, TextField, Grid, Avatar, Typography, Checkbox, Button, Stack } from '@mui/material';
 import FormControlLabel from '@mui/material/FormControlLabel';
-import KeyIcon from '@mui/icons-material/Key';
-import bgimg from '../images/backimg.jpg';
-import bg from '../images/signin.svg';
+import SignUpButton from './../../assests/css/SIgnupButton'
 import LockOpenIcon from '@mui/icons-material/LockOpen';
 import React from 'react';
-import bg2 from '../images/backimg.jpg';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
-import SignUpButton from '../css/Css';
-import { Link } from '@mui/material';
+import { StyledLink } from '../../components/mui/Link';
+import { boxstyle, center } from './../../assests/css/SellerRegisterCss'
+
 const theme = createTheme({
   components: {
     MuiInputLabel: {
@@ -46,39 +44,8 @@ const theme = createTheme({
     },
   },
 });
-const boxstyle = {
-  position: "relative",
-  // backgroundImage: `url(${bg2})`,
-  backgroundSize: "cover",
-  margin: "auto",
-  marginTop: 2,
-  width: "50vw",
-  height: "95vh",
-  boxShadow: 25,
-  backgroundColor: "#3b33d5",
-  borderRadius: 2,
-  color: "white",
-  fontSize: 14,
-  '@media (max-width: 768px)': {
-    width: "80vw",
-    height: "100vh",
-    marginTop: 0,
-    borderRadius: 0,
-    fontSize: 12,
-  },
 
-};
-const center = {
-  position: "absolute",
-  top: "50%",
-  left: "50%",
-  transform: "translate(-50%, -50%)",
-  width: "50%",
-  height: "auto",
-  boxShadow: 30,
-  paddingTop: 'min(10%, 2vw)',
-};
-export const Seller_Register = () => {
+export const SellerRegister = () => {
   return (
     <ThemeProvider theme={theme}>
       <Box sx={boxstyle}>
@@ -99,15 +66,7 @@ export const Seller_Register = () => {
             <TextField label="Phone No"></TextField>
             <TextField label="Location"></TextField>
             <Button variant="contained" sx={SignUpButton}> SignUp</Button>
-            <Link href="/" sx={{
-              color: "white",
-              textAlign: "center",
-              '&:hover': {
-                color: "#FF9A01",
-                textDecoration: "none"
-
-              }
-            }}>Already Account? SignIn</Link>
+            <StyledLink to='/sellerlogin' style={{ textAlign: "center" }}>Already Account? SignIn</StyledLink>
           </Stack>
         </Box>
       </Box>
