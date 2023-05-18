@@ -2,7 +2,7 @@ import { Link } from "react-router-dom";
 import { Button } from "@mui/material";
 import styled from 'styled-components';
 const ProductLink = styled(Link)`
-  color: green;
+  color: black;
   text-decoration: none;
 
   &:hover {

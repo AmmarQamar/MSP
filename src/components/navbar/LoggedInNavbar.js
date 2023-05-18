@@ -2,6 +2,7 @@ import { AppBar, Toolbar, Box, IconButton, Typography, Button } from '@mui/mater
 import { Link } from 'react-router-dom';
 import LogoImage2 from './../../assests/images/logo2.png';
 import { NavLink } from '../mui/Link'
+import SearchProduct from './SearchProduct';
 
 const LoggedInNavbar = () => {
     return (
@@ -11,11 +12,12 @@ const LoggedInNavbar = () => {
                     <img src={LogoImage2} alt="Logo" style={{ background: "none", height: 40 }} />
                 </Box>
                 <Box sx={{ display: "flex", justifyContent: "space-around", width: "40vw", marginRight: "50px" }}>
-                    <NavLink to='/addmart'>Home</NavLink>
+                    <NavLink to='/products'>Home</NavLink>
                     <NavLink to='/addmart'>About</NavLink>
                     <NavLink to='/addproduct' >New Product</NavLink>
-                    {/* <StyledNavLink to='/sellerlogin'>Login</StyledNavLink>
-                    <StyledNavLink to='/sellerregister'>SignUp</StyledNavLink> */}
+                </Box>
+                <Box >
+                    <SearchProduct />
                 </Box>
             </Toolbar>
         </AppBar>

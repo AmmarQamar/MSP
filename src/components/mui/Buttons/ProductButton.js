@@ -5,8 +5,7 @@ const ProductButton = styled(Button)`
   color: green;
   text-decoration: none;
   width:80px;
-  height:30px;
-  padding:2px;
+  height:40px;
   &:hover {
     color: #FF9A01;
     text-decoration: none;

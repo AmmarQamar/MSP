@@ -11,6 +11,13 @@ export const centerBox = {
     borderRadius: 3,
     opacity: 2,
     color: "#171E39",
+    // border: 1,
+    marginTop: 5,
+    // '@media (min-height: 700px)': {
+    //     margin: 0,
+    //     height: '100%',
+    // },
+
 }
 
 export const fieldBox = {
@@ -22,6 +29,11 @@ export const fieldBox = {
     width: "30vw",
     height: "80%",
     display: "flex",
+    // '@media (min-height: 700px)': {
+    //     margin: 0,
+    //     height: '100%',
+    //     backgroundColor: "red"
+    // },
     // backgroundColor: "#F5F5F5",
 }
 

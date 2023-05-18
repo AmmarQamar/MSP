@@ -1,20 +1,29 @@
 
 import React from 'react';
-import { Container, Box, TextField, Grid, Avatar, Typography, Checkbox, Button, Stack, Input } from '@mui/material';
-import { centerBox, fieldBox, field, fieldLabel } from '../css/Main';
-import { styled } from "@mui/system";
+import { Link } from 'react-router-dom';
+import { Box, TextField, Grid, Avatar, Typography, Button, Stack, Input } from '@mui/material';
+import { centerBox, fieldBox, field } from './../../assests/css/AddMartCss';
+// import { styled } from "@mui/system";
 import AddPhotoAlternateIcon from '@mui/icons-material/AddPhotoAlternate';
 
 const AddNewProduct = () => {
     return (
-        <body style={{ backgroundColor: "#E3EBFB", height: "100vh" }}>
+        <Box sx={{
+            backgroundColor: "#E3EBFB",
+            height: "100vh",
+            // '@media (max-height: 700px)': {
+            //     margin: 0,
+            //     height: '100%',
+            //     backgroundColor: "#E3EBFB",
+            // },
+        }} >
             <Box>
-                <Box sx={centerBox}>
+                <Box sx={centerBox}  >
                     <Box sx={fieldBox}>
                         <Stack spacing={2}>
                             <Grid container spacing={2}>
-                                <Grid item xs={12} lg={12} sx={{ marginBottom: 5 }}>
-                                    <Typography variant="h6" sx={{ textAlign: "center", fontWeight: "bold" }}>Add New item</Typography>
+                                <Grid item xs={12} lg={12} sx={{ marginBottom: 3 }}>
+                                    <Typography variant="h6" sx={{ textAlign: "center", fontWeight: "bold" }}>Add Product</Typography>
                                 </Grid>
                                 {/* Name */}
                                 <Grid item xs={12} lg={5} sx={field}>
@@ -28,25 +37,25 @@ const AddNewProduct = () => {
                                     <Typography sx={{ fontSize: 12 }}>Description*</Typography>
                                 </Grid>
                                 <Grid item xs={12} lg={7}>
-                                    <TextField fullWidth multiline row={6}></TextField>
+                                    <TextField fullWidth size="small"></TextField>
                                 </Grid>
                                 {/* Price */}
                                 <Grid item xs={12} lg={5} sx={field}>
-                                    <Typography sx={{ fontSize: 12 }}>Price*</Typography>
+                                    <Typography sx={{ fontSize: 12 }}>Quantity*</Typography>
                                 </Grid>
                                 <Grid item xs={12} lg={7} >
                                     <TextField fullWidth size="small" ></TextField>
                                 </Grid>
                                 {/* Quantity */}
                                 <Grid item xs={12} lg={5} sx={field}>
-                                    <Typography sx={{ fontSize: 12 }}>Quantity*</Typography>
+                                    <Typography sx={{ fontSize: 12 }}>Price*</Typography>
                                 </Grid>
                                 <Grid item xs={12} lg={7}>
                                     <TextField fullWidth size="small" ></TextField>
                                 </Grid>
                                 {/* Insert Image */}
                                 <Grid item xs={12} lg={5} sx={field}>
-                                    <Typography sx={{ fontSize: 12 }}>Add Image*</Typography>
+                                    <Typography sx={{ fontSize: 12 }}>Ad Image*</Typography>
                                 </Grid>
                                 <Grid item xs={12} lg={7}>
                                     <Avatar
@@ -57,19 +66,20 @@ const AddNewProduct = () => {
                                         <Input id="image-input"
                                             type="file" style={{ display: 'none' }}></Input>
                                     </Avatar>
+
                                 </Grid>
                                 <Grid item xs={6} lg={6} sx={{ textAlign: "right" }}>
                                     <Button variant="text" sx={{ color: "#7C7C7C", }}>Cancel</Button>
                                 </Grid>
                                 <Grid item xs={6} lg={6} sx={{ textAlign: "right" }}>
-                                    <Button variant="contained" sx={{ bgcolor: "#171E39", height: 30, fontSize: 11 }}>Add Item</Button>
+                                    <Button variant="contained" sx={{ bgcolor: "#171E39", height: 30, fontSize: 11 }}>Save</Button>
                                 </Grid>
                             </Grid>
                         </Stack>
                     </Box>
                 </Box>
             </Box>
-        </body >)
+        </Box >)
 }
 
 export default AddNewProduct
