@@ -1,17 +1,22 @@
 .search-box {
     display: flex;
-    justify-content: center;
+    justify-content: flex-end;
     align-items: center;
-    height: 35px;
+
+    height: 40px;
     border: 1px solid black;
     border-radius: 20px;
     padding-right: 8px;
-
+    margin: auto;
+    width: 40vw;
+    margin-bottom: 10px;
     /* background-color: aqua; */
 }
 
 .input-search {
+    width: 35vw;
     height: 30px;
+    text-align: center;
     /* padding: 0px 10px; */
     margin-left: 5px;
     font-size: 14px;

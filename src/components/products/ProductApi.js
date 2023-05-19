@@ -3,13 +3,13 @@ import { Grid, Card, CardActions, CardContent, CardMedia } from '@mui/material'
 import ProductButton from '../mui/Buttons/ProductButton';
 import ProductLink from '../mui/Buttons/ProductLink';
 import CardTypographyconst from '../mui/Typography/Typography';
-
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { setAllProducts, setFilteredProducts, setSearchQuery } from '../../redux/Product/ProductSlice';
+import SearchProduct from '../navbar/SearchProduct';
 const ProductsApi = () => {
+    const dispatch = useDispatch();
     const [products, setProducts] = useState([]);
 
-    const dispatch = useDispatch();
     useEffect(() => {
         const fetchProducts = async () => {
             //api fetch
@@ -18,6 +18,7 @@ const ProductsApi = () => {
             const data = await res.json();
             console.log(data);
             setProducts(data);
+            dispatch(setAllProducts(data))
         }
         fetchProducts();
     }, [])
@@ -31,7 +32,12 @@ const ProductsApi = () => {
                     margin: 0,
                     width: '100%',
                 },
+
             }}>
+            <Grid item sm={12} lg={12}>
+                <SearchProduct />
+
+            </Grid>
             {products.map((product) => (
                 <Grid item key={product.id} xs={6} md={4} lg={4}>
                     <Card sx={{ maxWidth: 330, height: 370 }}>

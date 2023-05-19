@@ -13,27 +13,38 @@ const SearchProduct = () => {
     const allProducts = useSelector(selectAllProducts);
     const [search, setSearch] = useState('');
 
-    useEffect(() => {
-        const fetchProducts = async () => {
-            try {
-                const response = await fetch('"https://fakestoreapi.com/products"');
-                const data = await response.json();
-
-                dispatch(setAllProducts(data));
-            } catch (error) {
-                console.error('Error fetching products:', error);
-            }
-        };
-        fetchProducts();
-    }, [dispatch]);
-
+    // useEffect(() => {
+    //     const fetchProducts = async () => {
+    //         const response = await fetch('"https://fakestoreapi.com/products"');
+    //         const data = await response.json();
+    //         console.log(data)
+    //         debugger
+    //         dispatch(setAllProducts(data));
+    //     };
+    //     fetchProducts();
+    // }, [dispatch]);
     const handleSearch = () => {
-        dispatch(setSearchQuery(search));
+        // if (search.trim() === '') {
+        //     dispatch(setFilteredProducts(allProducts));
+        // } else {
         const filtered = allProducts.filter((product) =>
-            product.name.toLowerCase().includes(search.toLowerCase())
+            product.title && product.title.toLowerCase().includes(search.toLowerCase())
         );
         dispatch(setFilteredProducts(filtered));
-    };
+    }
+    // };
+
+
+    // const handleSearch = () => {
+    //     dispatch(setSearchQuery(search));
+    //     console.log(allProducts)
+    //     const products = JSON.stringify(allProducts);
+    //     debugger
+    //     const filtered = products.map((product) =>
+    //         product.name.toLowerCase().includes(search.toLowerCase())
+    //     );
+    //     dispatch(setFilteredProducts(filtered));
+    // };
 
     return (
         <Box className="search-box">

@@ -17,7 +17,7 @@ const LoggedInNavbar = () => {
                     <NavLink to='/addproduct' >New Product</NavLink>
                 </Box>
                 <Box >
-                    <SearchProduct />
+                    {/* <SearchProduct /> */}
                 </Box>
             </Toolbar>
         </AppBar>
