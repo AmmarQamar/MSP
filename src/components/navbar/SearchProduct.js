@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import SearchSharpIcon from '@mui/icons-material/SearchSharp';
 import { Box } from '@mui/material';
 import { useDispatch, useSelector } from 'react-redux';
-import { setSearchQuery, selectFilteredProducts, setAllProducts, selectAllProducts, setFilteredProducts, showAllProducts } from '../../redux/Product/ProductSlice';
+import { setSearchQuery, selectSearchQuery, selectFilteredProducts, setAllProducts, selectAllProducts, setFilteredProducts, showAllProducts } from '../../redux/Product/ProductSlice';
 import '../../assests/css/searchbar.css';
 
 const SearchProduct = () => {
@@ -11,7 +11,9 @@ const SearchProduct = () => {
 
     const [search, setSearch] = useState('');
 
-    const handleSearch = () => {
+    const handleSearch = (search) => {
+        setSearch(search);
+
         const filtered = allProducts.filter(
             (product) =>
                 product.title &&
@@ -29,9 +31,12 @@ const SearchProduct = () => {
                 className="input-search"
                 placeholder="Search..."
                 value={search}
-                onChange={(e) => setSearch(e.target.value)}
+                onChange={(e) => handleSearch(e.target.value)}
+            // onChange={(e) => setSearch(e.target.value)}
+
             />
-            <SearchSharpIcon sx={{ cursor: 'pointer' }} onClick={handleSearch} />
+            <SearchSharpIcon sx={{ cursor: 'pointer' }} />
+            {/* <SearchSharpIcon sx={{ cursor: 'pointer' }} onClick={handleSearch} /> */}
 
         </Box>
     );

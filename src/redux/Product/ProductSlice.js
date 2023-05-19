@@ -21,6 +21,13 @@ const productSlice = createSlice({
             state.filteredProducts = state.allProducts;
             state.searchQuery = '';
         },
+        filterProducts: (state, action) => {
+            const searchQuery = action.payload;
+            const filteredProducts = state.allProducts.filter((product) => {
+                return product.name.toLowerCase().includes(searchQuery.toLowerCase());
+            });
+            state.filteredProducts = filteredProducts;
+        },
     },
 });
 
