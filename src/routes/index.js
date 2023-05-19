@@ -25,6 +25,7 @@ const router = createBrowserRouter([
         // path: '/addmart',
         element: <SellerLoggedInLayout />,
         children: [
+            // { path: '/productsapi', element: <ProductApi/> },
             { path: '/products', element: <ProductPage /> },
             { path: '/addmart', element: <AddMart /> },
             { path: '/addproduct', element: <AddNewProduct /> },

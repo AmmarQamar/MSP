@@ -1,10 +1,9 @@
 import { Box, Typography } from '@mui/material'
 import SellerSlider from '../../components/slider/SellerSlider';
-import Products from '../../components/products/Product';
+import ProductsApi from '../../components/products/ProductApi';
 // import { useState } from 'react';
 
 const ProductPage = () => {
-    // const []
     return (
         <Box sx={{
             margin: "auto",
@@ -13,7 +12,8 @@ const ProductPage = () => {
         }}>
             <SellerSlider />
             <Typography variant="h5" sx={{ textAlign: "center", marginTop: 5 }}>Products</Typography>
-            <Products />
+            {/* <Products /> */}
+            <ProductsApi />
         </Box >
     )
 }

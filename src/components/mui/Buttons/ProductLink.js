@@ -1,13 +1,18 @@
-import { Link } from "react-router-dom";
-import { Button } from "@mui/material";
-import styled from 'styled-components';
-const ProductLink = styled(Link)`
-  color: black;
-  text-decoration: none;
+import React from 'react';
+import { Link } from '@mui/material';
 
-  &:hover {
-    color: #FF9A01;
-    text-decoration: none;
-  }
-`;
-export default ProductLink
+export default function ProductLink(props) {
+  const { children, ...otherProps } = props;
+
+  return (
+    <Link {...props} sx={{
+      fontSize: "12px",
+      color: "black",
+      textDecoration: "none",
+      '&:hover': {
+        // color: "#FF9A01",
+
+      }
+    }}>{children}</Link>
+  );
+}

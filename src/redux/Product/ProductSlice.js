@@ -1,22 +1,21 @@
-import { createSlice } from '@reduxjs/toolkit'
-// import type { PayloadAction } from '@reduxjs/toolkit'
+import { createSlice } from '@reduxjs/toolkit';
+;
 
-export const ProductSlice = createSlice({
-    name: 'Product',
+const initialState = [];
+const productsSlice = createSlice({
+    name: 'productsList',
     initialState,
     reducers: {
-        increment: (state) => {
-
-            state.value += 1
+        add(state, action) {
+            state.push(action.payload);
         },
-        decrement: (state) => {
-            state.value -= 1
+        allproducts(state, action) {
+            // state.map()
         },
+        searchproducts(state, action) {
 
-    },
+        },
+    }
 })
-
-// Action creators are generated for each case reducer function
-export const { increment, decrement } = ProductSlice.actions
-
-export default ProductSlice.reducer
+export const { allproducts, searchproducts, add } = productsSlice.actions;
+export default productsSlice.reducer
