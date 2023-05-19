@@ -5,7 +5,7 @@ import ProductLink from '../mui/Buttons/ProductLink';
 import CardTypographyconst from '../mui/Typography/Typography';
 
 import { useDispatch } from 'react-redux';
-import { add, allproducts, searchproducts } from '../../redux/Product/ProductSlice';
+import { setAllProducts, setFilteredProducts, setSearchQuery } from '../../redux/Product/ProductSlice';
 const ProductsApi = () => {
     const [products, setProducts] = useState([]);
 
@@ -21,11 +21,6 @@ const ProductsApi = () => {
         }
         fetchProducts();
     }, [])
-
-    //handle Add
-    const handleAdd = (product) => {
-        dispatch(add(product));
-    }
 
     return (
         <Grid container
@@ -55,9 +50,9 @@ const ProductsApi = () => {
                             </CardTypographyconst>
                         </CardContent>
                         <CardActions sx={{ display: "flex", justifyContent: "center" }}>
-                            <ProductButton variant="outlined" >
+                            {/* <ProductButton variant="outlined" >
                                 <ProductLink onClick={() => handleAdd(product)} >Add</ProductLink>
-                            </ProductButton>
+                            </ProductButton> */}
                             <ProductButton variant="outlined" >
                                 <ProductLink to='/edit' >Edit</ProductLink>
                             </ProductButton>
