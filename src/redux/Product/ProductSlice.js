@@ -17,10 +17,19 @@ const productSlice = createSlice({
         setSearchQuery: (state, action) => {
             state.searchQuery = action.payload;
         },
+        showAllProducts: (state) => {
+            state.filteredProducts = state.allProducts;
+            state.searchQuery = '';
+        },
     },
 });
 
-export const { setAllProducts, setFilteredProducts, setSearchQuery } = productSlice.actions;
+export const {
+    setAllProducts,
+    setFilteredProducts,
+    setSearchQuery,
+    showAllProducts,
+} = productSlice.actions;
 
 export const selectAllProducts = (state) => state.products.allProducts;
 export const selectFilteredProducts = (state) => state.products.filteredProducts;
