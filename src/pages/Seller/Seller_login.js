@@ -1,19 +1,34 @@
-import { Container, Box, TextField, Grid, Avatar, Typography, Checkbox, Button } from '@mui/material';
+import {
+    Container,
+    Box,
+    Grid,
+    Avatar,
+    Typography,
+    Checkbox,
+    Button,
+} from '@mui/material';
 import FormControlLabel from '@mui/material/FormControlLabel';
-import KeyIcon from '@mui/icons-material/Key';
 import LockOpenIcon from '@mui/icons-material/LockOpen';
-import { Link } from 'react-router-dom';
-import React from 'react';
-import bgimg from './../../assests/images/backimg.jpg';
+import React, { useState } from 'react';
 import bg from './../../assests/images/signin.svg';
 import SignUpButton from './../../assests/css/SIgnupButton'
 import { StyledLink } from '../../components/mui/Link';
 import { boxstyle, center } from './../../assests/css/MidBoxStyle'
-
-
-
+import LoginTextField from '../../components/mui/TextField/LoginTextField';
 
 export const SellerLogin = () => {
+
+    const [email, setEmail] = useState('');
+    const [password, setPassword] = useState('');
+    const [check, setCheck] = useState(false);
+
+
+
+    const hanldeClick = () => {
+        if (email && password) {
+            console.log("Login Successful")
+        }
+    }
     return (
 
         <div style={{
@@ -22,7 +37,7 @@ export const SellerLogin = () => {
             <Box sx={boxstyle} >
                 <Grid container >
                     {/* For Image */}
-                    <Grid item xs={12} lg={6} >
+                    <Grid item sm={12} md={6} lg={6}>
                         <Box
                             sx={{
                                 backgroundImage: `url(${bg})`,
@@ -59,41 +74,11 @@ export const SellerLogin = () => {
                             <Box>
                                 <Grid container>
                                     <Grid item xs={12} lg={12} sx={{ marginTop: 2 }}>
-                                        <TextField
-                                            label="Email"
-                                            variant="outlined"
-                                            size="small"
-                                            required
-                                            fullWidth
-                                            InputProps={{ style: { fontSize: '13px', color: 'white' } }}
-                                            InputLabelProps={{ style: { fontSize: '13px', color: 'white' } }}
-                                            sx={{
-                                                '& fieldset': {
-                                                    borderColor: 'white',
-                                                },
-                                                '&:hover fieldset': {
-                                                    borderColor: '#FF9A01',
-                                                }
-                                            }}
-                                        >
-                                        </TextField>
+                                        <LoginTextField value={email} label="Email" onChange={e => setEmail(e.target.value)} />
                                     </Grid>
-                                    <Grid item xs={12} lg={12} sx={{ marginTop: 2, marginBottom: 2 }}>
-                                        <TextField
-                                            label="Password"
-                                            variant="outlined"
-                                            size="small"
-                                            required
-                                            fullWidth
-                                            InputProps={{ style: { fontSize: '13px', color: 'white' } }}
-                                            InputLabelProps={{ style: { fontSize: '13px', color: 'white' } }}
-                                            sx={{
-                                                '& fieldset': {
-                                                    borderColor: 'white',
-                                                }
-                                            }}
-                                        >
-                                        </TextField>
+                                    <Grid item xs={12} lg={12} sx={{ mt: 2, mb: 2 }}>
+                                        <LoginTextField value={email} label="Password" onChange={e => setPassword(e.target.value)} />
+
                                     </Grid>
                                     <Grid container style={{ marginTop: 2 }}>
                                         <Grid item xs={8} lg={8}>
@@ -104,12 +89,15 @@ export const SellerLogin = () => {
                                                         Remember Me
                                                     </Typography>
                                                 }
-                                                control={<Checkbox size='small' defaultChecked sx={{
-                                                    color: "white",
-                                                    '&.Mui-checked': {
-                                                        color: `#ffff`
-                                                    },
-                                                }} />}
+                                                control={<Checkbox
+                                                    value={check}
+                                                    onChange={e => setCheck(e.target.value)}
+                                                    size='small' defaultChecked sx={{
+                                                        color: "white",
+                                                        '&.Mui-checked': {
+                                                            color: `#ffff`
+                                                        },
+                                                    }} />}
                                             />
                                         </Grid>
                                         <Grid item xs={12} lg={4}  >
@@ -124,11 +112,14 @@ export const SellerLogin = () => {
                                                     },
                                                 }}
                                             >
-                                                Forget Password
+                                                Forget Password?
                                             </Typography>
                                         </Grid>
                                     </Grid>
-                                    <Button variant='contained'
+                                    <Button
+                                        onChange={hanldeClick}
+
+                                        variant='contained'
                                         sx={SignUpButton}>SIGN IN
                                     </Button>
                                     <Typography variant='span'

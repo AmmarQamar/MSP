@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import SearchSharpIcon from '@mui/icons-material/SearchSharp';
 import { Box } from '@mui/material';
 import { useDispatch, useSelector } from 'react-redux';
-import { setSearchQuery, selectSearchQuery, selectFilteredProducts, setAllProducts, selectAllProducts, setFilteredProducts, showAllProducts } from '../../redux/Product/ProductSlice';
+import { setSearchQuery, selectAllProducts, setFilteredProducts, } from '../../redux/Product/ProductSlice';
 import '../../assests/css/searchbar.css';
 
 const SearchProduct = () => {
