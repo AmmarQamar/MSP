@@ -11,13 +11,15 @@ import {
     selectFilteredProducts,
     showAllProducts,
     selectSearchQuery,
+    removeProduct
 } from '../../redux/Product/ProductSlice';
 import SearchProduct from '../navbar/SearchProduct';
 
 const ProductsApi = () => {
     const dispatch = useDispatch();
     const allProducts = useSelector(selectAllProducts);
-    const filteredProducts = useSelector(selectFilteredProducts);
+    const filteredProducts = useSelector(selectFilteredProducts); // same as below
+    // const filteredProducts = useSelector((state) => state.products.filteredProducts);
     const searchQuery = useSelector(selectSearchQuery);
 
     useEffect(() => {
@@ -29,6 +31,10 @@ const ProductsApi = () => {
         };
         fetchProducts();
     }, [dispatch]);
+    // handle Rmove product
+    const handleDelete = (productId) => {
+        dispatch(removeProduct(productId));
+    }
 
     return (
         <Grid
@@ -59,7 +65,8 @@ const ProductsApi = () => {
                                     <ProductLink to="/edit">Edit</ProductLink>
                                 </ProductButton>
                                 <ProductButton variant="outlined">
-                                    <ProductLink to="/addmart">Delete</ProductLink>
+                                    <ProductLink to="/addmart"
+                                        onClick={() => handleDelete(product.id)}>Delete</ProductLink>
                                 </ProductButton>
                             </CardActions>
                         </Card>
@@ -79,7 +86,7 @@ const ProductsApi = () => {
                                     <ProductLink to="/edit">Edit</ProductLink>
                                 </ProductButton>
                                 <ProductButton variant="outlined">
-                                    <ProductLink to="/addmart">Delete</ProductLink>
+                                    <ProductLink to="/addmart" onClick={() => handleDelete(product.id)}>Delete</ProductLink>
                                 </ProductButton>
                             </CardActions>
                         </Card>

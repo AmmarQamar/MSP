@@ -28,7 +28,13 @@ const productSlice = createSlice({
             });
             state.filteredProducts = filteredProducts;
         },
-    },
+        removeProduct: (state, action) => {
+            console.log("delete")
+            const productId = action.payload;
+            state.allProducts = state.allProducts.filter((product) => product.id !== productId);
+            state.filteredProducts = state.filteredProducts.filter((product) => product.id !== productId);
+        },
+    }
 });
 
 export const {
@@ -36,6 +42,7 @@ export const {
     setFilteredProducts,
     setSearchQuery,
     showAllProducts,
+    removeProduct,
 } = productSlice.actions;
 
 export const selectAllProducts = (state) => state.products.allProducts;
