@@ -10,27 +10,37 @@ import {
 import FormControlLabel from '@mui/material/FormControlLabel';
 import LockOpenIcon from '@mui/icons-material/LockOpen';
 import React, { useState } from 'react';
-import bg from './../../assests/images/signin.svg';
 import SignUpButton from './../../assests/css/SIgnupButton'
 import { StyledLink } from '../../components/mui/Link';
-import { boxstyle, center } from './../../assests/css/MidBoxStyle'
+import {
+    boxstyle,
+    center,
+    rightcontainer,
+    sideimg
+} from './../../assests/css/MidBoxStyle'
 import LoginTextField from '../../components/mui/TextField/LoginTextField';
 
 export const SellerLogin = () => {
-
-    const [email, setEmail] = useState('');
-    const [password, setPassword] = useState('');
-    const [check, setCheck] = useState(false);
-
-
-
-    const hanldeClick = () => {
-        if (email && password) {
-            console.log("Login Successful")
+    const [seller, setSeller] = useState({
+        email: '',
+        password: '',
+        check: false,
+    })
+    const handleChange = e => {
+        const { name, value, checked } = e.target;
+        if (name === 'check') {
+            setSeller({ ...seller, [name]: checked });
+        } else {
+            setSeller({ ...seller, [name]: value });
         }
     }
+    const hanldeClick = e => {
+        // if (seller.email && seller.password) {
+        const { name, value } = e.target;
+        setSeller({ ...seller, [name]: value })
+        // }
+    }
     return (
-
         <div style={{
             color: "#f5f5f5",
         }}>
@@ -38,29 +48,12 @@ export const SellerLogin = () => {
                 <Grid container >
                     {/* For Image */}
                     <Grid item sm={12} md={6} lg={6}>
-                        <Box
-                            sx={{
-                                backgroundImage: `url(${bg})`,
-                                backgroundSize: "cover",
-                                marginTop: "40px",
-                                marginLeft: "15px",
-                                marginRight: "15px",
-                                height: "63vh",
-                                color: "#f5f5f5",
-                            }}
-                        ></Box>
+                        <Box sx={sideimg}></Box>
                     </Grid>
                     {/* For Fields */}
                     <Grid item xs={12} lg={6}>
                         <Box
-                            sx={{
-                                backgroundColor: "#3b33d5",
-                                height: "100%",
-                                backgroundSize: "cover",
-                                minHeight: "300px",
-                                pl: 10,
-                                pr: 10,
-                            }}>
+                            sx={rightcontainer}>
                             <Container sx={center} >
                                 <Avatar
                                     sx={{ p: 1, mt: 2, bgcolor: "#ffffff" }}>
@@ -74,25 +67,34 @@ export const SellerLogin = () => {
                             <Box>
                                 <Grid container>
                                     <Grid item xs={12} lg={12} sx={{ marginTop: 2 }}>
-                                        <LoginTextField value={email} label="Email" onChange={e => setEmail(e.target.value)} />
+                                        <LoginTextField
+                                            value={seller.email}
+                                            label="Email"
+                                            name="email"
+                                            onChange={handleChange} />
                                     </Grid>
                                     <Grid item xs={12} lg={12} sx={{ mt: 2, mb: 2 }}>
-                                        <LoginTextField value={email} label="Password" onChange={e => setPassword(e.target.value)} />
-
+                                        <LoginTextField
+                                            value={seller.password}
+                                            label="Password"
+                                            name="password"
+                                            onChange={handleChange} />
                                     </Grid>
                                     <Grid container style={{ marginTop: 2 }}>
                                         <Grid item xs={8} lg={8}>
                                             <FormControlLabel
-
                                                 label={
                                                     <Typography style={{ fontSize: 12 }}>
                                                         Remember Me
                                                     </Typography>
                                                 }
                                                 control={<Checkbox
-                                                    value={check}
-                                                    onChange={e => setCheck(e.target.value)}
-                                                    size='small' defaultChecked sx={{
+                                                    checked={seller.check}
+                                                    name="check"
+                                                    onChange={handleChange}
+                                                    size='small'
+                                                    // defaultChecked 
+                                                    sx={{
                                                         color: "white",
                                                         '&.Mui-checked': {
                                                             color: `#ffff`

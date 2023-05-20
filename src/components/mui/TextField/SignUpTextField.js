@@ -56,30 +56,31 @@ const CustomTextField = styled(TextField, {
 });
 
 const SignUpTextField = (props) => {
-    const [seller, setSeller] = useState({
-        fullname: '',
-        email: '',
-        password: '',
-        phoneno: '',
-        address: '',
-    });
+    // const [seller, setSeller] = useState({
+    //     fullname: '',
+    //     email: '',
+    //     password: '',
+    //     phoneno: '',
+    //     address: '',
+    // });
 
     // const { value, ...otherprops } = props;
     // const { name, value, onChange } = props;
 
-    const handleChange = (e) => {
-        // const { value } = e.target;
+    // const handleChange = (e) => {
+    //     // const { value } = e.target;
 
-        const { name, value } = e.target;
-        setSeller({ ...seller, [name]: value })
-    };
+    //     const { name, value } = e.target;
+    //     setSeller({ ...seller, [name]: value })
+    // };
     return (
         <Box sx={{ height: 40, }}>
             <CustomTextField
                 {...props}
                 variant="outlined"
                 required fullWidth
-                onChange={handleChange} />
+            // onChange={handleChange} 
+            />
         </Box >
     )
 }

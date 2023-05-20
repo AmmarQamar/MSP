@@ -13,14 +13,17 @@ import { boxstyle, center } from './../../assests/css/SellerRegisterCss'
 import SignUpTextField from '../../components/mui/TextField/SignUpTextField';
 
 export const SellerRegister = () => {
-  // const [seller, setSeller] = useState({
-  //   fullname: '',
-  //   email: '',
-  //   password: '',
-  //   phoneno: '',
-  //   address: '',
-  // });
-
+  const [seller, setSeller] = useState({
+    fullname: '',
+    email: '',
+    password: '',
+    phoneno: '',
+    address: '',
+  });
+  const handleChange = e => {
+    const { name, value } = e.target
+    setSeller({ ...seller, [name]: value })
+  }
   return (
     <Box sx={boxstyle}>
       <Box sx={center}>
@@ -34,11 +37,21 @@ export const SellerRegister = () => {
           </Typography>
         </div>
         <Stack spacing={2}>
-          <SignUpTextField name="fullname" label="Full Name" value={seller.fullname}></SignUpTextField>
-          <SignUpTextField name="email" label="Email" value={seller.email}></SignUpTextField>
-          <SignUpTextField name="password" label="Password" value={seller.password}></SignUpTextField>
-          <SignUpTextField name="phoneno" label="Phone No" value={seller.phoneno}></SignUpTextField>
-          <SignUpTextField name="address" label="Address" value={seller.address}></SignUpTextField>
+          <SignUpTextField name="fullname" label="Full Name" value={seller.fullname}
+            onChange={handleChange}
+          ></SignUpTextField>
+          <SignUpTextField name="email" label="Email" value={seller.email}
+            onChange={handleChange}
+          ></SignUpTextField>
+          <SignUpTextField name="password" label="Password" value={seller.password}
+            onChange={handleChange}
+          ></SignUpTextField>
+          <SignUpTextField name="phoneno" label="Phone No" value={seller.phoneno}
+            onChange={handleChange}
+          ></SignUpTextField>
+          <SignUpTextField name="address" label="Address" value={seller.address}
+            onChange={handleChange}
+          ></SignUpTextField>
           <Button variant="contained"
             sx={SignUpButton}
           // onClick={handleSubmit}
