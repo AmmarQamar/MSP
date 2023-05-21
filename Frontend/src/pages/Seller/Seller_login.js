@@ -18,9 +18,13 @@ import {
     rightcontainer,
     sideimg
 } from './../../assests/css/MidBoxStyle'
+import axios from 'axios';
 import LoginTextField from '../../components/mui/TextField/LoginTextField';
+import { useNavigate } from "react-router-dom";
 
-export const SellerLogin = () => {
+
+export const SellerLogin = ({ setLoginSeller }) => {
+    const navigate = useNavigate();
     const [seller, setSeller] = useState({
         email: '',
         password: '',
@@ -34,11 +38,17 @@ export const SellerLogin = () => {
             setSeller({ ...seller, [name]: value });
         }
     }
-    const hanldeClick = e => {
-        // if (seller.email && seller.password) {
-        const { name, value } = e.target;
-        setSeller({ ...seller, [name]: value })
-        // }
+    const handleSubmit = () => {
+        const { email, password } = seller
+        axios.post("http://localhost:9002/login", seller)
+            .then((res) => {
+                alert(res.data.message)
+                setLoginSeller(res.data.seller)
+                navigate('/home')
+            })
+            .catch((error) => {
+                console.error("Error during login:", error);
+            });
     }
     return (
         <div style={{
@@ -118,12 +128,11 @@ export const SellerLogin = () => {
                                             </Typography>
                                         </Grid>
                                     </Grid>
-                                    <Button
-                                        onChange={hanldeClick}
 
-                                        variant='contained'
-                                        sx={SignUpButton}>SIGN IN
-                                    </Button>
+                                    <Button variant="contained"
+                                        sx={SignUpButton}
+                                        onClick={handleSubmit}
+                                    > SIGN IN</Button>
                                     <Typography variant='span'
                                         sx={{
                                             fontSize: "12px",
@@ -135,7 +144,7 @@ export const SellerLogin = () => {
                                             underline: "none",
 
                                         }}>
-                                        <StyledLink to='/sellerregister' sx={{
+                                        <StyledLink to='/register' sx={{
                                             color: 'white',
                                             textDecoration: 'none',
                                             '&:hover': {

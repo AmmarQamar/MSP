@@ -12,7 +12,12 @@ import { StyledLink } from '../../components/mui/Link';
 import { boxstyle, center } from './../../assests/css/SellerRegisterCss'
 import SignUpTextField from '../../components/mui/TextField/SignUpTextField';
 import axios from "axios"
+import {
+  useNavigate
+} from 'react-router-dom';
+
 export const SellerRegister = () => {
+  const navigate = useNavigate()
   const [seller, setSeller] = useState({
     fullname: '',
     email: '',
@@ -32,7 +37,11 @@ export const SellerRegister = () => {
     if (fullname && email && address && password &&
       (password === reEnterPassword)) {
       axios.post("http://localhost:9002/register", seller)
-        .then(res => console.log(res))
+        .then(res => {
+          // res.preventDefault()
+          alert(res.data.message)
+          navigate('/login')
+        })
     }
     else {
       alert("Invalid")
@@ -75,7 +84,7 @@ export const SellerRegister = () => {
             sx={SignUpButton}
             onClick={handleSubmit}
           > SignUp</Button>
-          <StyledLink to='/sellerlogin' style={{ textAlign: "center" }}>Already Account? SignIn</StyledLink>
+          <StyledLink to='/login' style={{ textAlign: "center" }}>Already Account? SignIn</StyledLink>
         </Stack>
       </Box>
     </Box>

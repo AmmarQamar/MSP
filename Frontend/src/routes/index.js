@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState } from 'react'
 import AddMart from '../pages/Seller/AddMart';
 import {
     createBrowserRouter,
@@ -9,39 +9,49 @@ import { SellerLogin } from '../pages/Seller/Seller_login';
 import AddNewProduct from '../pages/Seller/AddNewProduct';
 import { SellerRegister } from '../pages/Seller/Seller_Register';
 import { SellerLoggedInLayout } from '../layouts/SellerLoggedInLayout';
-import Currentlocation from '../components/api/location/CurrentLocation';
+import ErrorPage from './error';
+// import Currentlocation from '../components/api/location/CurrentLocation';
 import ProductPage from '../pages/Seller/ProductPage';
-const router = createBrowserRouter([
-    {
-        path: "/",
-        element: <SellerLayout />,
-        children: [
-            { path: '/', element: <SellerRegister /> },
-            { path: '/sellerlogign', element: <SellerLogin /> },
-            // { path: '/sellerlogin', element: <SellerLogin /> },
-        ],
-    },
-    {
-        // path: '/addmart',
-        element: <SellerLoggedInLayout />,
-        children: [
-            // { path: '/productsapi', element: <ProductApi/> },
-            { path: '/products', element: <ProductPage /> },
-            { path: '/addmart', element: <AddMart /> },
-            { path: '/addproduct', element: <AddNewProduct /> },
-            { path: '/currentlocation', element: <Currentlocation /> },
+import HomePage from '../pages/Home';
 
-        ],
-    },
+const Routes = () => {
+    const [seller, setLoginSeller] = useState({});
+    const router = createBrowserRouter([
+        {
+            path: '/',
+            element: <SellerLayout />,
+            errorElement: <ErrorPage />,
+            children: [
+                {
+                    path: '/',
+                    element: seller && seller._id ? <HomePage /> : <SellerLogin setLoginSeller={setLoginSeller} />,
+                    children: [
+                        {
+                            path: '/login', element: <SellerLogin />
+                        },
+                    ]
+                },
+                // { path: '/login', element: <SellerLogin /> },
+                { path: '/register', element: <SellerRegister setLoginSeller={setLoginSeller} /> },
+            ],
+        },
+        {
+            // path: "/home",
+            element: <SellerLoggedInLayout />,
+            children: [
+                {
+                    path: '/home',
+                    element: <ProductPage />
+                },
+                // { path: '/products', element: <ProductPage /> },
+                { path: '/addmart', element: <AddMart /> },
+                { path: '/addproduct', element: <AddNewProduct /> },
+                // { path: '/currentlocation', element: <CurrentLocation /> },
+            ],
+        },
+    ]);
 
-    // {
-    //     path: "/sellerlogin",
-    //     element: <SellerLogin />
-    // },
+    return <RouterProvider router={router} />;
+};
 
-]);
-export default function Routes(props) {
-    return (
-        <RouterProvider router={router} />
-    )
-}
+export default Routes;

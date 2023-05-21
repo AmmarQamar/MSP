@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 import LogoImage2 from './../../assests/images/logo2.png';
 import { NavLink } from '../mui/Link'
 import SearchProduct from './SearchProduct';
+import Logout from "./Logout"
 
 const LoggedInNavbar = () => {
     return (
@@ -17,6 +18,7 @@ const LoggedInNavbar = () => {
                     <NavLink to='/addproduct' >New Product</NavLink>
                 </Box>
                 <Box >
+                    <Logout />
                     {/* <SearchProduct /> */}
                 </Box>
             </Toolbar>

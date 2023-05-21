@@ -41,37 +41,53 @@ app.get("/", (req, res) => {
 //                  POST  Routes
 // Seller Register
 app.post("/register", (req, res) => {
-    // console.log(req.body)
     const { fullname, email, phoneno, address, password } = req.body;
-    const seller = new Seller({
-        fullname,
-        email,
-        phoneno,
-        address,
-        password
-    })
-    seller.save()
-        .then(() => {
-            console.log({ message: "success" });
+    Seller.findOne({ email: email })
+        .then(seller => {
+            if (seller) {
+                res.send({ message: `${seller.email} already registered` })
+            }
+            else {
+                const seller = new Seller({
+                    fullname,
+                    email,
+                    phoneno,
+                    address,
+                    password
+                })
+
+                seller.save()
+                    .then(() => {
+                        console.log("Seller saved successfully");
+                        res.status(200).json({ message: "Seller registered successfully" });
+                    })
+                    .catch((error) => {
+                        console.error("Error saving seller:", error);
+                        res.status(500).json({ message: "Error saving seller" });
+                    });
+            }
         })
-        .catch((error) => {
-            console.error("Error connecting to MongoDB:", error);
-        });
-    // seller.save(err => {
-    //     if (err) {
-    //         res.send(err)
-    //     } else {
-    //         res.send({ message: "Sucesfully Registered" })
-    //     }
-
-    // })
 })
-
 // Seller Login
-
 app.post("/login", (req, res) => {
-    res.send("Login")
-})
+    const { email, password } = req.body;
+
+    Seller.findOne({ email: email })
+        .then(seller => {
+            if (!seller) {
+                res.status(404).json({ message: "Account not registered" });
+            } else if (password === seller.password) {
+                res.send({ message: "Login Successfully", seller: seller });
+            } else {
+                res.send({ message: "Password incorrect" });
+            }
+        })
+        .catch(error => {
+            console.error("Error during login:", error);
+            res.status(500).json({ message: "Error during login" });
+        });
+});
+
 app.listen(PORT, () => {
     debugger
     console.log(`Run on PORT ${PORT} `);
