@@ -38,13 +38,12 @@ export const SellerRegister = () => {
       (password === reEnterPassword)) {
       axios.post("http://localhost:9002/register", seller)
         .then(res => {
-          // res.preventDefault()
           alert(res.data.message)
           navigate('/login')
         })
     }
     else {
-      alert("Invalid")
+      alert("InCorrect Password")
     }
   }
 
@@ -61,6 +60,7 @@ export const SellerRegister = () => {
           </Typography>
         </div>
         <Stack spacing={2}>
+
           <SignUpTextField name="fullname" label="Full Name" value={seller.fullname}
             onChange={handleChange}
           ></SignUpTextField>

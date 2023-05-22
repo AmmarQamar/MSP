@@ -10,6 +10,7 @@ import AddNewProduct from '../pages/Seller/AddNewProduct';
 import { SellerRegister } from '../pages/Seller/Seller_Register';
 import { SellerLoggedInLayout } from '../layouts/SellerLoggedInLayout';
 import ErrorPage from './error';
+import UserLoginPage from '../pages/User/UserLoginPage';
 // import Currentlocation from '../components/api/location/CurrentLocation';
 import ProductPage from '../pages/Seller/ProductPage';
 import HomePage from '../pages/Home';
@@ -26,13 +27,13 @@ const Routes = () => {
                     path: '/',
                     element: seller && seller._id ? <HomePage /> : <SellerLogin setLoginSeller={setLoginSeller} />,
                     children: [
-                        {
-                            path: '/login', element: <SellerLogin />
-                        },
+                        { path: '/login', element: <SellerLogin /> },
+
                     ]
                 },
                 // { path: '/login', element: <SellerLogin /> },
-                { path: '/register', element: <SellerRegister setLoginSeller={setLoginSeller} /> },
+                { path: '/register', element: <SellerRegister /> },
+                // { path: '/register', element: <SellerRegister setLoginSeller={setLoginSeller} /> },
             ],
         },
         {
@@ -46,9 +47,13 @@ const Routes = () => {
                 // { path: '/products', element: <ProductPage /> },
                 { path: '/addmart', element: <AddMart /> },
                 { path: '/addproduct', element: <AddNewProduct /> },
+
+
+
                 // { path: '/currentlocation', element: <CurrentLocation /> },
             ],
         },
+        { path: '/userlogin', element: <UserLoginPage /> },
     ]);
 
     return <RouterProvider router={router} />;

@@ -88,6 +88,12 @@ app.post("/login", (req, res) => {
         });
 });
 
+// Seller logout
+app.get('/logout', (req, res) => {
+    console.log("Logout Api")
+    res.clearCookie('jwtoken', { path: '/' })
+    res.status(200).send("Logout Successfull")
+})
 app.listen(PORT, () => {
     debugger
     console.log(`Run on PORT ${PORT} `);

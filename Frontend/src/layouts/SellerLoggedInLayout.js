@@ -7,7 +7,7 @@ export const SellerLoggedInLayout = () => {
         <>
             <LoggedInNavbar />
             <Outlet ></Outlet>
-            <Footer />
+            {/* <Footer /> */}
         </>
     )
 }

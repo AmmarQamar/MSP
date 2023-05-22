@@ -1,11 +1,14 @@
-import { AppBar, Toolbar, Box, IconButton, Typography, Button } from '@mui/material';
-import { Link } from 'react-router-dom';
+import { AppBar, Toolbar, Box, } from '@mui/material';
 import LogoImage2 from './../../assests/images/logo2.png';
 import { NavLink } from '../mui/Link'
-import SearchProduct from './SearchProduct';
+// import SearchProduct from './SearchProduct';
 import Logout from "./Logout"
 
 const LoggedInNavbar = () => {
+
+    // const handleLogOut = () => {
+    // }
+
     return (
         <AppBar position="fixed" sx={{ backgroundColor: "white", color: "black" }} elevation={0} >
             <Toolbar>

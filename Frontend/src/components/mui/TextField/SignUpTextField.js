@@ -1,8 +1,8 @@
 import { TextField, Box } from '@mui/material';
-import React, { useState } from 'react'
+import React from 'react'
 import styled from 'styled-components';
 
-const CustomTextField = styled(TextField, {
+export const CustomTextField = styled(TextField, {
     name: "CustomTextField",
 })({
     // ---------------Input---------------
@@ -56,23 +56,7 @@ const CustomTextField = styled(TextField, {
 });
 
 const SignUpTextField = (props) => {
-    // const [seller, setSeller] = useState({
-    //     fullname: '',
-    //     email: '',
-    //     password: '',
-    //     phoneno: '',
-    //     address: '',
-    // });
 
-    // const { value, ...otherprops } = props;
-    // const { name, value, onChange } = props;
-
-    // const handleChange = (e) => {
-    //     // const { value } = e.target;
-
-    //     const { name, value } = e.target;
-    //     setSeller({ ...seller, [name]: value })
-    // };
     return (
         <Box sx={{ height: 40, }}>
             <CustomTextField
