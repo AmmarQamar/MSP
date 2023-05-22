@@ -11,7 +11,7 @@ import { SellerRegister } from '../pages/Seller/Seller_Register';
 import { SellerLoggedInLayout } from '../layouts/SellerLoggedInLayout';
 import ErrorPage from './error';
 import UserLoginPage from '../pages/User/UserLoginPage';
-// import Currentlocation from '../components/api/location/CurrentLocation';
+import Location from '../components/api/location/Location';
 import ProductPage from '../pages/Seller/ProductPage';
 import HomePage from '../pages/Home';
 
@@ -47,10 +47,7 @@ const Routes = () => {
                 // { path: '/products', element: <ProductPage /> },
                 { path: '/addmart', element: <AddMart /> },
                 { path: '/addproduct', element: <AddNewProduct /> },
-
-
-
-                // { path: '/currentlocation', element: <CurrentLocation /> },
+                { path: '/location', element: <Location /> },
             ],
         },
         { path: '/userlogin', element: <UserLoginPage /> },

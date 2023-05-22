@@ -4,7 +4,7 @@ import React from 'react'
 const AddMartTypography = (props) => {
     // const { children, ...otherprops } = props
     return (
-        <Typography {...props} sx={{ fontSize: 12, color: "white" }} ></Typography>
+        <Typography {...props} sx={{ fontSize: 12, color: "black" }} ></Typography>
     )
 }
 
