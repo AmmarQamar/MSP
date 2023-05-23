@@ -1,11 +1,31 @@
+// export const centerBox = {
+//     position: "absolute",
+//     top: "50%",
+//     left: "50%",
+//     transform: "translate(-50%, -50%)",
+//     width: "40vw",
+//     height: "100%",
+//     // minheight: "100%",
+//     backgroundColor: "#FEFEFE",
+//     boxShadox: 30,
+//     borderRadius: 3,
+//     opacity: 2,
+//     color: "#171E39",
+//     // border: 1,
+//     marginTop: 5,
+//     // '@media (min-height: 700px)': {
+//     //     margin: 0,
+//     //     height: '100%',
+//     // },
+
+// }
 export const centerBox = {
     position: "absolute",
     top: "50%",
     left: "50%",
     transform: "translate(-50%, -50%)",
     width: "40vw",
-    height: "85vh",
-    // minheight: "100%",
+    height: "150%",
     backgroundColor: "#FEFEFE",
     boxShadox: 30,
     borderRadius: 3,
@@ -13,13 +33,16 @@ export const centerBox = {
     color: "#171E39",
     // border: 1,
     marginTop: 5,
-    // '@media (min-height: 700px)': {
-    //     margin: 0,
-    //     height: '100%',
-    // },
+    transition: " height 1s",
+
+    "@media (min-height: 100vh)": {
+        height: "90vh",
+        backgroundColor: "#FEFEFE",
+
+        // backgroundColor: "#171E39"
+    },
 
 }
-
 export const fieldBox = {
 
     position: "relative",

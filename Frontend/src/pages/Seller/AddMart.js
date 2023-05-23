@@ -2,13 +2,12 @@
 import React, { useState, useEffect } from 'react';
 import { Box, Grid, Avatar, Button, Stack } from '@mui/material';
 import { fieldBox, field } from './../../assests/css/AddMartCss';
-import { boxstyle } from './../../assests/css/SellerRegisterCss'
 import { centerBox } from './../../assests/css/AddMartCss'
-import AddLocationAltOutlinedIcon from '@mui/icons-material/AddLocationAltOutlined';
 import AddMartTypography from '../../components/mui/Typography/AddMartTypography';
 import AddMartTextField from '../../components/mui/TextField/AddMartTextField';
 import { useLocation, useNavigate } from 'react-router-dom';
 import LocationSelector from '../../components/api/location/Location';
+import axios from 'axios';
 
 
 const AddMart = () => {
@@ -25,44 +24,39 @@ const AddMart = () => {
     const [mart, setMart] = useState({
         title: '',
         owner: '',
-        city: '',
         contact: '',
+        address: '',
         location: ''
     })
+
     const handleChange = e => {
         const { name, value } = e.target
         setMart({ ...mart, [name]: value })
     }
-    // function handleClick() {
-    //     navigate("/currentlocation")
-    // }
+    const handleSubmit = () => {
+        const { title, owner, address, contact, location } = mart
+        if (title && owner && address && contact && location) {
+            debugger
 
-    // const handleLocationChange = (location) => {
-    //     setMart({ ...mart, location });
-    // };
+            axios.post("http://localhost:9002/addmart", mart)
+                .then(res => {
+                    console.log("Successfully Registered Mart")
+                    alert(res.data.message)
+                    navigate('/addproduct')
 
-    // const locationParam = new URLSearchParams(location.search).get('location');
-
-    // Set the location in the state when the locationParam changes
-    // useEffect(() => {
-    //     if (locationParam) {
-    //         setMart({ ...mart, location: locationParam });
-    //     }
-    // }, [locationParam]);
-
-    // function handleLocationSelection(location) {
-    //     // Redirect back to the AddMart component with the selected location as a URL parameter
-    //     navigate(`/addmart?location=${location}`);
-    // }
-
-    // function handleClick() {
-    //     navigate('/location');
-    // }
+                })
+                .catch(() => {
+                    alert("Mart Not Registered Api not work")
+                });
+        }
+        else {
+            alert("Please Fill all fields")
+        }
+    }
 
     return (
         <Box sx={{ marginTop: 10 }} >
-            {/* <Box sx={{ backgroundColor: "#E3EBFB", height: "100vh", marginTop: 10 }} > */}
-            {/* <Box sx={boxstyle} > */}
+
             <Box sx={centerBox} >
                 <Box sx={fieldBox}>
                     <Stack spacing={2}>
@@ -96,10 +90,10 @@ const AddMart = () => {
                             </Grid>
                             {/* Quantity */}
                             <Grid item xs={12} lg={5} sx={field}>
-                                <AddMartTypography>City*</AddMartTypography>
+                                <AddMartTypography>Address*</AddMartTypography>
                             </Grid>
                             <Grid item xs={12} lg={7}>
-                                <AddMartTextField name="city" value={mart.city} onChange={handleChange}></AddMartTextField>
+                                <AddMartTextField name="address" value={mart.address} onChange={handleChange}></AddMartTextField>
                             </Grid>
                             {/* Insert Image */}
                             <Grid item xs={12} lg={5} sx={field}>
@@ -126,8 +120,20 @@ const AddMart = () => {
                             {/* <Grid item xs={6} lg={6} sx={{ textAlign: "right" }}>
                                 <Button variant="text" sx={{ color: "black", }}>Cancel</Button>
                             </Grid> */}
-                            <Grid item xs={12} lg={12}>
-                                <Button variant="contained" sx={{ margin: "auto", bgcolor: "#171E39", height: 30, width: "300px", fontSize: 11 }}>Save</Button>
+                            <Grid item xs={12} lg={12} sx={{ display: "flex", justifyContent: "center" }}>
+                                <Button
+                                    variant="contained"
+                                    sx={{
+                                        bgcolor: "#171E39",
+                                        height: 30,
+                                        marginTop: 4,
+                                        width: 200,
+                                        fontSize: 11,
+                                    }}
+                                    onClick={handleSubmit}
+                                >
+                                    Save
+                                </Button>
                             </Grid>
                         </Grid>
                     </Stack>

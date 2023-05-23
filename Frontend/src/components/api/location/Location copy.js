@@ -9,6 +9,7 @@ function Currentlocation({ location, setLocation }) {
     });
 
     useEffect(() => {
+        debugger
         if (navigator.geolocation) {
             navigator.geolocation.getCurrentPosition(
                 (position) => {
@@ -24,8 +25,7 @@ function Currentlocation({ location, setLocation }) {
         } else {
             console.log("Geolocation is not supported by this browser.");
         }
-    }, []);
-    // }, [setLocation]);
+    }, [setLocation]);
 
     const handleMapClick = (event) => {
         const lat = event.latLng.lat();
@@ -39,17 +39,6 @@ function Currentlocation({ location, setLocation }) {
         setLocation({ lat, lng });
     };
 
-    const [marker, setMarker] = useState(null);
-
-    useEffect(() => {
-        if (isLoaded && location) {
-            setMarker(<Marker
-                position={location}
-                draggable={true}
-                onDragEnd={handleMarkerDragEnd}
-            />);
-        }
-    }, [isLoaded, location, setMarker]);
 
     if (loadError) return <div>Error loading maps</div>;
     if (!isLoaded) return <div>Loading...</div>;
@@ -62,7 +51,14 @@ function Currentlocation({ location, setLocation }) {
                 mapContainerStyle={{ height: "400px", width: "30vw" }}
                 onClick={handleMapClick}
             >
-                {marker}
+                {/* {location && <Marker position={location} />} */}
+                {location && (
+                    <Marker
+                        position={location}
+                        draggable={true}
+                        onDragEnd={handleMarkerDragEnd}
+                    />
+                )}
             </GoogleMap>
         </Box>
     );
