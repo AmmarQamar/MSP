@@ -46,8 +46,8 @@ export const SellerLogin = ({ setLoginSeller }) => {
                 setLoginSeller(res.data.seller)
                 navigate('/addmart')
             })
-            .catch((error) => {
-                console.error("Error during login:", error);
+            .catch((res) => {
+                alert(res.data.message)
             });
     }
     return (

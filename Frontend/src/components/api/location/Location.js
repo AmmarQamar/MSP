@@ -5,7 +5,10 @@ import { Box, Button } from "@mui/material";
 
 function Currentlocation({ location, setLocation }) {
     const { isLoaded, loadError } = useLoadScript({
-        googleMapsApiKey: process.env.REACT_APP_GOOGLE_MAPS_API_KEY,
+        googleMapsApiKey: "AIzaSyDt2aRdrd_41en1KKW2Gnxmk7cWGsgPnlk",
+        // googleMapsApiKey: process.env.REACT_APP_GOOGLE_MAPS_API_KEY,
+
+
     });
 
     useEffect(() => {

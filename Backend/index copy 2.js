@@ -131,14 +131,17 @@ app.post("/register", (req, res) => {
 // Seller Add Mart
 app.post('/addmart', (req, res) => {
     const { title, owner, address, contact, location } = req.body
-    // const { lat, lng } = location;
+    const { lat, lng } = location;
 
     const mart = new Mart({
         title,
         owner,
         address,
         contact,
-        location
+        location: {
+            lat,
+            lng
+        }
     });
     mart.save()
         .then(() => {

@@ -26,7 +26,10 @@ const AddMart = () => {
         owner: '',
         contact: '',
         address: '',
-        location: ''
+        location: {
+            lat: '',
+            lng: ''
+        }
     })
 
     const handleChange = e => {
@@ -36,14 +39,13 @@ const AddMart = () => {
     const handleSubmit = () => {
         const { title, owner, address, contact, location } = mart
         if (title && owner && address && contact && location) {
-            debugger
+            debugger;
 
             axios.post("http://localhost:9002/addmart", mart)
                 .then(res => {
                     console.log("Successfully Registered Mart")
                     alert(res.data.message)
                     navigate('/addproduct')
-
                 })
                 .catch(() => {
                     alert("Mart Not Registered Api not work")
@@ -57,7 +59,7 @@ const AddMart = () => {
     return (
         <Box sx={{ marginTop: 10 }} >
 
-            <Box sx={centerBox} >
+            <Box sx={centerBox}>
                 <Box sx={fieldBox}>
                     <Stack spacing={2}>
                         <Grid container spacing={2}>
