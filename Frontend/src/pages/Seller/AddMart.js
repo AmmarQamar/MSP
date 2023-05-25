@@ -40,7 +40,7 @@ const AddMart = () => {
       debugger;
 
       axios
-        .post("http://localhost:9002/addmart", mart)
+        .post("http://localhost:9002/seller/addmart", mart)
         .then((res) => {
           console.log("Successfully Registered Mart");
           alert(res.data.message);

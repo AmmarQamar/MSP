@@ -1,4 +1,4 @@
-// Seller Schema
+const mongoose = require("mongoose");
 
 // Add Mart Schema
 const locationSchema = new mongoose.Schema({

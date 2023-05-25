@@ -36,21 +36,16 @@ export const SellerRegister = () => {
     ) {
       //debugger;
       axios
-        .post("http://localhost:9002/register", seller)
-        .then((res) => res.json())
+        .post("http://localhost:9002/seller/register", seller)
         .then((res) => {
-          alert(res);
+          alert(res.data.message);
+          navigate("/login");
         })
-        // {
-        //   alert(res.data.message);
-        //   navigate("/login");
-        // }
-
         .catch(() => {
-          alert("Error");
+          alert("Api Not Found");
         });
     } else {
-      alert("Fill all fields");
+      alert("Fill all fields correctly");
     }
   };
 

@@ -1,12 +1,16 @@
 const mongoose = require("mongoose");
-const { Schema, model } = require("mongoose");
-const sellerSchema = new Schema({
+// const { Schema, model } = require("mongoose");
+const sellerSchema = new mongoose.Schema({
   fullname: String,
   email: String,
   phoneno: String,
   address: String,
   password: String,
 });
-//Seller Model
-const Seller = new mongoose.model("Seller", sellerSchema);
-module.exports = Seller;
+const SellerRegistration = new mongoose.model(
+  "SellerRegistration",
+  sellerSchema
+);
+
+// Export Model
+module.exports = SellerRegistration;

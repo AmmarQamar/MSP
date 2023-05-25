@@ -15,14 +15,31 @@ connectDB();
 const router = express.Router();
 
 const products_routes = require("./routes/products");
-const sellerroutes = require("./routes/Seller");
+// const sellerroute = require("./routes/Seller");
+const sellerroute = require("./routes/Seller");
 
-const { getAllProducts } = require("./Controllers/SellerController");
-const { SellerRegister } = require("./Controllers/SellerController");
+const {
+  Seller_Register,
+  Seller_Login,
+  AdMart,
+} = require("./Controllers/SellerController");
+// app.post("/seller/register", Seller_Register);
+// app.post("/seller/login", Seller_Login);
+
+app.use("/seller", sellerroute);
+
+// sellerroute.route("/register").post(Seller_Register);
+// sellerroute.route("/login").post(Seller_Login);
+// const sellerroute = require("./path/to/sellerroute");
+
+// Use the sellerroute as middleware
+// app.use("/seller", sellerroutes);
+
+// const { getAllProducts } = require("./Controllers/SellerController");
 //Middleware
-app.get("/api/products", getAllProducts);
-app.post("/register", SellerRegister);
-//app.use("/login", sellerroutes);
+
+// app.use("/register", sellerroute);
+// app.use("/login", sellerroute);
 
 //                  POST  Routes
 
