@@ -62,12 +62,18 @@ const AddNewProduct = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     const { name, description, price, quantity, image } = product;
+    const formData = new FormData();
+    formData.append("name", product.name);
+    formData.append("description", product.description);
+    formData.append("price", product.price);
+    formData.append("quantity", product.quantity);
+    formData.append("image", product.image);
     debugger;
     console.log(name, description, price, quantity, image);
     if (name && description && price && quantity && image) {
       try {
         const response = await axios
-          .post("http://localhost:9002/products/addproduct", product)
+          .post("http://localhost:9002/products/addproduct", formData)
           .then(() => {
             alert("Successfully Added Product!");
           })
