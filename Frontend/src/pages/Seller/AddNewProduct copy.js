@@ -34,6 +34,7 @@ const AddNewProduct = () => {
   });
   //   const [file, setFile] = useState();
   const [productURL, setProductURL] = useState("");
+
   const handleChange = (e) => {
     const { name, value, files } = e.target;
     setProduct({
@@ -41,40 +42,22 @@ const AddNewProduct = () => {
       [name]: value,
     });
     if (name === "image" && files.length > 0) {
-      const selectedFile = e.target.files[0];
-      setProduct({
-        ...product,
-        image: selectedFile,
-      });
-      setProductURL(URL.createObjectURL(selectedFile));
+      // const selectedImg = ImagetoBase64(e.target.files[0]);
+      const selectedURL = e.target.files[0];
+      const reader = new FileReader();
+      reader.onload = () => {
+        const selectedImg = reader.result;
+        setProduct({
+          ...product,
+          image: selectedImg,
+        });
+        setProductURL(URL.createObjectURL(selectedURL));
+      };
+      reader.readAsDataURL(files[0]);
     } else if (name === "name" && value === "") {
       return "Name is required";
     }
   };
-
-  // const handleChange = (e) => {
-  //   const { name, value, files } = e.target;
-  //   setProduct({
-  //     ...product,
-  //     [name]: value,
-  //   });
-  //   if (name === "image" && files.length > 0) {
-  //     // const selectedImg = ImagetoBase64(e.target.files[0]);
-  //     const selectedURL = e.target.files[0];
-  //     const reader = new FileReader();
-  //     reader.onload = () => {
-  //       const selectedImg = reader.result;
-  //       setProduct({
-  //         ...product,
-  //         image: selectedImg,
-  //       });
-  //       setProductURL(URL.createObjectURL(selectedURL));
-  //     };
-  //     reader.readAsDataURL(files[0]);
-  //   } else if (name === "name" && value === "") {
-  //     return "Name is required";
-  //   }
-  // };
 
   // handle click on image icon
   const handleImageIconClick = () => {
@@ -82,30 +65,31 @@ const AddNewProduct = () => {
   };
 
   const handleSubmit = async (e) => {
-    e.preventDefault();
-
     const { name, description, price, quantity, image } = product;
+    console.log("Submit", name, description, price, quantity);
+    const formData = new FormData();
+    formData.append("name", product.name);
+    formData.append("description", product.description);
+    formData.append("price", product.price);
+    formData.append("quantity", product.quantity);
+    formData.append("image", product.image);
+    console.log(formData);
 
     if (name && description && price && quantity && image) {
       try {
-        const formData = new FormData();
-        formData.append("name", name);
-        formData.append("description", description);
-        formData.append("price", price);
-        formData.append("quantity", quantity);
-        formData.append("image", image);
-
-        const response = await axios.post(
-          "http://localhost:9002/seller/products/addproduct",
-          formData
-        );
-        console.log(response.data);
-
-        alert("Successfully Added Product!");
-        navigate("/home");
+        const response = await axios
+          .post("http://localhost:9002/seller/products/addproduct", formData)
+          .then(() => {
+            alert("Successfully Added Product!");
+            navigate("/home");
+          })
+          .catch(() => {
+            alert("Error: Couldn't add Product!");
+          });
       } catch (error) {
-        console.error("Error occurred while adding the product:", error);
-        alert("Error: Couldn't add Product!");
+        console.error(
+          "Error occurred while adding the product: " + error.message
+        );
       }
     } else {
       alert("Please fill in all fields");

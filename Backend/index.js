@@ -1,6 +1,7 @@
 const connectDB = require("./database/db");
 const cors = require("cors");
 const express = require("express");
+const multer = require("multer");
 const { json, urlencoded } = require("express");
 
 const app = express();
@@ -14,26 +15,21 @@ connectDB();
 
 const router = express.Router();
 
-const products_routes = require("./routes/products");
-// const sellerroute = require("./routes/Seller");
-const sellerroute = require("./routes/Seller");
+const sellerRoute = require("./routes/Seller");
+const productRouter = require("./routes/products");
 
 const {
   Seller_Register,
   Seller_Login,
   AdMart,
 } = require("./Controllers/SellerController");
+
 // app.post("/seller/register", Seller_Register);
 // app.post("/seller/login", Seller_Login);
-
-app.use("/seller", sellerroute);
-
 // sellerroute.route("/register").post(Seller_Register);
-// sellerroute.route("/login").post(Seller_Login);
-// const sellerroute = require("./path/to/sellerroute");
+app.use("/seller", sellerRoute);
 
-// Use the sellerroute as middleware
-// app.use("/seller", sellerroutes);
+app.use("/seller/products", productRouter);
 
 // const { getAllProducts } = require("./Controllers/SellerController");
 //Middleware
@@ -125,27 +121,27 @@ app.use("/seller", sellerroute);
 // });
 
 // New Product Add Route
-app.post("/products/addproduct", (req, res) => {
-  const { name, description, price, quantity, image } = req.body;
-  const product = new Product({
-    name,
-    description,
-    price,
-    quantity,
-    image,
-  });
-  product
-    .save()
-    .then(() => {
-      res
-        .status(200)
-        .json({ message: "Product Added Successfully through Api" });
-    })
-    .catch((err) => {
-      console.log(err);
-      res.status(500).json({ message: "Error Adding Product" });
-    });
-});
+// app.post("/products/addproduct", (req, res) => {
+//   const { name, description, price, quantity, image } = req.body;
+//   const product = new Product({
+//     name,
+//     description,
+//     price,
+//     quantity,
+//     image,
+//   });
+//   product
+//     .save()
+//     .then(() => {
+//       res
+//         .status(200)
+//         .json({ message: "Product Added Successfully through Api" });
+//     })
+//     .catch((err) => {
+//       console.log(err);
+//       res.status(500).json({ message: "Error Adding Product" });
+//     });
+// });
 
 app.listen(PORT, () => {
   debugger;
