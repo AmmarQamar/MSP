@@ -37,8 +37,7 @@ const AddMart = () => {
   const handleSubmit = () => {
     const { title, owner, address, contact, location } = mart;
     if (title && owner && address && contact && location) {
-      debugger;
-
+      console.log(typeof mart);
       axios
         .post("http://localhost:9002/seller/addmart", mart)
         .then((res) => {

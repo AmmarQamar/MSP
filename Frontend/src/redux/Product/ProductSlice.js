@@ -2,22 +2,56 @@ import { createSlice } from "@reduxjs/toolkit";
 
 const productSlice = createSlice({
   name: "products",
-  initailValue: 0,
-
+  initialState: {
+    allProducts: [],
+    filteredProducts: [],
+    searchQuery: "",
+  },
   reducers: {
-    addProduct: (state, action) => {
-      console.log("addproduct");
+    setAllProducts: (state, action) => {
+      state.allProducts = action.payload;
     },
-    editProduct: (state, action) => {
-      console.log("editproduct");
+    setFilteredProducts: (state, action) => {
+      state.filteredProducts = action.payload;
     },
-    deleteProduct: (state, action) => {
-      console.log("deleteproduct");
+    setSearchQuery: (state, action) => {
+      state.searchQuery = action.payload;
     },
-    allProducts: (state, action) => {
-      console.log("allproducts");
+    showAllProducts: (state) => {
+      state.filteredProducts = state.allProducts;
+      state.searchQuery = "";
+    },
+    filterProducts: (state, action) => {
+      const searchQuery = action.payload;
+      const filteredProducts = state.allProducts.filter((product) => {
+        return product.name.toLowerCase().includes(searchQuery.toLowerCase());
+      });
+      state.filteredProducts = filteredProducts;
+    },
+    removeProduct: (state, action) => {
+      console.log("delete");
+      const productId = action.payload;
+      state.allProducts = state.allProducts.filter(
+        (product) => product.id !== productId
+      );
+      state.filteredProducts = state.filteredProducts.filter(
+        (product) => product.id !== productId
+      );
     },
   },
 });
+
+export const {
+  setAllProducts,
+  setFilteredProducts,
+  setSearchQuery,
+  showAllProducts,
+  removeProduct,
+} = productSlice.actions;
+
+export const selectAllProducts = (state) => state.products.allProducts;
+export const selectFilteredProducts = (state) =>
+  state.products.filteredProducts;
+export const selectSearchQuery = (state) => state.products.searchQuery;
 
 export default productSlice.reducer;

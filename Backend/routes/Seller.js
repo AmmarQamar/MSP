@@ -1,14 +1,3 @@
-// const express = require("express");
-// const {
-//   Seller_Register,
-//   Seller_Login,
-// } = require("../Controllers/SellerController");
-
-// const sellerroute = express.Router();
-// sellerroute.route("/register").post(Seller_Register);
-// sellerroute.route("/login").post(Seller_Login);
-// module.exports = sellerroute;
-
 const express = require("express");
 const router = express.Router();
 
@@ -23,6 +12,16 @@ router.post("/login", Seller_Login);
 router.post("/addmart", AdMart);
 
 module.exports = router;
+// const express = require("express");
+// const {
+//   Seller_Register,
+//   Seller_Login,
+// } = require("../Controllers/SellerController");
+
+// const sellerroute = express.Router();
+// sellerroute.route("/register").post(Seller_Register);
+// sellerroute.route("/login").post(Seller_Login);
+// module.exports = sellerroute;
 
 // // Seller logout
 // app.get("/logout", (req, res) => {

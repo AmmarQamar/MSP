@@ -1,11 +1,12 @@
 const connectDB = require("./database/db");
 const cors = require("cors");
 const express = require("express");
+const multer = require("multer");
 const { json, urlencoded } = require("express");
-// const multer = require("multer");
-const path = require("path");
+
 const app = express();
 
+app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(cors());
 
@@ -16,19 +17,16 @@ const router = express.Router();
 
 const sellerRoute = require("./routes/Seller");
 const productRouter = require("./routes/products");
-// Set up multer for handling file uploads
-// const storage = multer.diskStorage({
-//   destination: "./public/uploads",
-//   filename: (req, file, cb) => {
-//     cb(null, `${Date.now()}-${file.originalname}`);
-//   },
-// });
-// const upload = multer({ storage });
 
-// Middleware
-app.use(express.json());
-app.use(express.static(path.join(__dirname, "public")));
+const {
+  Seller_Register,
+  Seller_Login,
+  AdMart,
+} = require("./Controllers/SellerController");
 
+// app.post("/seller/register", Seller_Register);
+// app.post("/seller/login", Seller_Login);
+// sellerroute.route("/register").post(Seller_Register);
 app.use("/seller", sellerRoute);
 
 app.use("/seller/products", productRouter);

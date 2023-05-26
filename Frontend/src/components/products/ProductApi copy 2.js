@@ -9,8 +9,6 @@ import {
   selectFilteredProducts,
   selectSearchQuery,
   removeProduct,
-  setAllProducts,
-  showAllProducts,
 } from "../../redux/Product/ProductSlice";
 import SearchProduct from "../navbar/SearchProduct";
 
@@ -25,18 +23,14 @@ const ProductsApi = () => {
     const fetchProducts = async () => {
       const res = await fetch("https://fakestoreapi.com/products");
       const data = await res.json();
-      dispatch(setAllProducts(data));
-      dispatch(showAllProducts());
+      //   dispatch(setAllProducts(data));
+      //   dispatch(showAllProducts());
     };
     fetchProducts();
   }, [dispatch]);
   // handle Rmove product
   const handleDelete = (productId) => {
     dispatch(removeProduct(productId));
-  };
-  const handleEdit = () => {
-    // dispatch(editProduct(productId));
-    // navigator("/edit");
   };
 
   return (
@@ -76,8 +70,12 @@ const ProductsApi = () => {
                     <ProductLink to="/edit">Edit</ProductLink>
                   </ProductButton>
                   <ProductButton variant="outlined">
-                    <ProductLink to="/addmart">Delete</ProductLink>
-                    onClick={() => handleDelete(product.id)}
+                    <ProductLink
+                      to="/addmart"
+                      onClick={() => handleDelete(product.id)}
+                    >
+                      Delete
+                    </ProductLink>
                   </ProductButton>
                 </CardActions>
               </Card>
@@ -101,14 +99,12 @@ const ProductsApi = () => {
                 </CardContent>
                 <CardActions sx={{ display: "flex", justifyContent: "center" }}>
                   <ProductButton variant="outlined">
-                    <ProductLink to="/edit" onClick={() => handleEdit()}>
-                      Edit
-                    </ProductLink>
+                    <ProductLink to="/edit">Edit</ProductLink>
                   </ProductButton>
                   <ProductButton variant="outlined">
                     <ProductLink
-                      onClick={() => handleDelete(product.id)}
                       to="/addmart"
+                      onClick={() => handleDelete(product.id)}
                     >
                       Delete
                     </ProductLink>

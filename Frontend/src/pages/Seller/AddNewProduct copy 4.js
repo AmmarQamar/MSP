@@ -1,30 +1,22 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import ProductButton from "../../components/mui/Buttons/ProductButton";
-import CancelButton from "../../components/mui/Buttons/CancelButton";
-import {
-  Box,
-  TextField,
-  Grid,
-  Avatar,
-  Typography,
-  Button,
-  Stack,
-  Input,
-} from "@mui/material";
+import { Box, Grid, Avatar, Stack } from "@mui/material";
 import { centerBox, fieldBox, field } from "./../../assests/css/AddMartCss";
-// import { styled } from "@mui/system";
 import AddPhotoAlternateIcon from "@mui/icons-material/AddPhotoAlternate";
 
+import CancelButton from "../../components/mui/Buttons/CancelButton";
 import AddMartTypography from "../../components/mui/Typography/AddMartTypography";
 import AddMartTextField from "../../components/mui/TextField/AddMartTextField";
+import AddButton from "../../components/mui/Buttons/AddButton";
+import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 
 import axios from "axios";
-import AddButton from "../../components/mui/Buttons/AddButton";
 
 const AddNewProduct = () => {
   const navigate = useNavigate();
+  const dispatch = useDispatch();
   const [product, setProduct] = useState({
     name: "",
     description: "",
@@ -41,18 +33,44 @@ const AddNewProduct = () => {
       [name]: value,
     });
     if (name === "image" && files.length > 0) {
-      const selectedFile = e.target.files[0];
-      setProduct({
-        ...product,
-        image: selectedFile,
-      });
-      setProductURL(URL.createObjectURL(selectedFile));
+      // const selectedImg = ImagetoBase64(e.target.files[0]);
+      const selectedURL = e.target.files[0];
+      const reader = new FileReader();
+      reader.onload = () => {
+        const selectedImg = reader.result;
+        console.log(typeof selectedImg);
+        debugger;
+        setProduct({
+          ...product,
+          image: selectedImg,
+        });
+        setProductURL(URL.createObjectURL(selectedURL));
+      };
+      reader.readAsDataURL(files[0]);
     } else if (name === "name" && value === "") {
       return "Name is required";
     }
   };
-
   // const handleChange = (e) => {
+  //   const { name, value, files } = e.target;
+  //   setProduct({
+  //     ...product,
+  //     [name]: value,
+  //   });
+  //   if (name === "image" && files.length > 0) {
+  //     const selectedFile = e.target.files[0];
+
+  //     console.log(typeof selectedFile);
+  //     setProduct({
+  //       ...product,
+  //       image: selectedFile,
+  //     });
+  //     setProductURL(URL.createObjectURL(selectedFile));
+  //   } else if (name === "name" && value === "") {
+  //     return "Name is required";
+  //   }
+  // };
+
   //   const { name, value, files } = e.target;
   //   setProduct({
   //     ...product,
@@ -81,10 +99,10 @@ const AddNewProduct = () => {
     document.getElementById("image-input").click();
   };
 
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-
+  const handleSubmit = (e) => {
     const { name, description, price, quantity, image } = product;
+    console.log(typeof image);
+    debugger;
 
     if (name && description && price && quantity && image) {
       try {
@@ -94,18 +112,35 @@ const AddNewProduct = () => {
         formData.append("price", price);
         formData.append("quantity", quantity);
         formData.append("image", image);
+        // formData.append("upload_preset", "productsimg");
+        // formData.append("cloud_name", "dg2hp4fba");
+        debugger;
+        // axios
+        //   .post("https://api.cloudinary.com/v1_1/dg2hp4fba/upload")
+        //   //  {
+        //   //   method: "post",
+        //   //   body: data,
+        //   // })
+        //   .then((res) => res.json())
+        //   .then((data) => {
+        //     console.log(data);
+        //   })
+        //   .catch((err) => console.log(err));
 
-        const response = await axios.post(
-          "http://localhost:9002/seller/products/addproduct",
-          formData
-        );
-        console.log(response.data);
-
-        alert("Successfully Added Product!");
-        navigate("/home");
+        console.log(typeof formData);
+        axios
+          .post("http://localhost:9002/seller/products/addproduct", formData)
+          .then((res) => {
+            alert("Successfully Added Product!", res.data);
+            console.log(res.data);
+            // navigate("/home");
+          })
+          .catch((err) => {
+            alert("Api Catch");
+          });
       } catch (error) {
         console.error("Error occurred while adding the product:", error);
-        alert("Error: Couldn't add Product!");
+        alert("try catch");
       }
     } else {
       alert("Please fill in all fields");
@@ -192,7 +227,7 @@ const AddNewProduct = () => {
                 name="image"
                 type="file"
                 onChange={handleChange}
-                accept="image/png, image/jpeg, image/webp, image/jpg"
+                accept="file, image/png, image/jpeg, image/webp, image/jpg"
                 style={{ display: "none" }}
               />
 

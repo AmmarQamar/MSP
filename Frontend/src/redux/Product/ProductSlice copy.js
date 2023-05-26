@@ -1,32 +1,57 @@
-import { createSlice } from '@reduxjs/toolkit'
+import { createSlice } from "@reduxjs/toolkit";
 
-import iphone from '../../assests/images/dummyproducts/iphone11.jpg';
-import laptop from '../../assests/images/dummyproducts/laptop.jpg';
-import laptop2 from '../../assests/images/dummyproducts/laptop2.jpg';
-import mob2 from '../../assests/images/dummyproducts/mob2.jpg';
-// const initialState = {
-//     value: 0,
-// }
-export const ProductSlice = createSlice({
-    name: 'productList',
-    initialState: {
-        products: [
-            { id: 1, name: 'Product 1', des: 'Mob', image: iphone, price: 10 },
-            { id: 2, name: 'Product 2', des: 'Mob', image: laptop, price: 20 },
-            { id: 3, name: 'Product 3', des: 'Laptop', image: mob2, price: 30 },
-            { id: 4, name: 'Product 3', des: 'Mobile', image: laptop2, price: 30 },
-            { id: 5, name: 'Product 3', des: 'COmputer', image: iphone, price: 30 },
-            { id: 6, name: 'Product 3', des: 'Mobile', image: mob2, price: 30 },
-        ],
-        searchTerm: '',
+const productSlice = createSlice({
+  name: "products",
+  initialState: {
+    allProducts: [],
+    filteredProducts: [],
+    searchQuery: "",
+  },
+  reducers: {
+    setAllProducts: (state, action) => {
+      state.allProducts = action.payload;
     },
-    reducers: {
-        setSearchTerm: (state, action) => {
-            state.searchTerm = action.payload;
-        },
+    setFilteredProducts: (state, action) => {
+      state.filteredProducts = action.payload;
     },
-})
-// Action creators are generated for each case reducer function
-export const { setSearchTerm } = ProductSlice.actions;
+    setSearchQuery: (state, action) => {
+      state.searchQuery = action.payload;
+    },
+    showAllProducts: (state) => {
+      state.filteredProducts = state.allProducts;
+      state.searchQuery = "";
+    },
+    filterProducts: (state, action) => {
+      const searchQuery = action.payload;
+      const filteredProducts = state.allProducts.filter((product) => {
+        return product.name.toLowerCase().includes(searchQuery.toLowerCase());
+      });
+      state.filteredProducts = filteredProducts;
+    },
+    removeProduct: (state, action) => {
+      console.log("delete");
+      const productId = action.payload;
+      state.allProducts = state.allProducts.filter(
+        (product) => product.id !== productId
+      );
+      state.filteredProducts = state.filteredProducts.filter(
+        (product) => product.id !== productId
+      );
+    },
+  },
+});
 
-export default ProductSlice.reducer
+export const {
+  setAllProducts,
+  setFilteredProducts,
+  setSearchQuery,
+  showAllProducts,
+  removeProduct,
+} = productSlice.actions;
+
+export const selectAllProducts = (state) => state.products.allProducts;
+export const selectFilteredProducts = (state) =>
+  state.products.filteredProducts;
+export const selectSearchQuery = (state) => state.products.searchQuery;
+
+export default productSlice.reducer;
