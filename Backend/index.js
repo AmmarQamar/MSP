@@ -16,14 +16,6 @@ const router = express.Router();
 
 const sellerRoute = require("./routes/Seller");
 const productRouter = require("./routes/products");
-// Set up multer for handling file uploads
-// const storage = multer.diskStorage({
-//   destination: "./public/uploads",
-//   filename: (req, file, cb) => {
-//     cb(null, `${Date.now()}-${file.originalname}`);
-//   },
-// });
-// const upload = multer({ storage });
 
 // Middleware
 app.use(express.json());
@@ -31,8 +23,9 @@ app.use(express.static(path.join(__dirname, "public")));
 
 app.use("/seller", sellerRoute);
 
-app.use("/seller/products", productRouter);
+// app.use("/seller/products", productRouter);
 
+app.use("/seller/products", productRouter);
 // const { getAllProducts } = require("./Controllers/SellerController");
 //Middleware
 

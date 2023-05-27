@@ -1,4 +1,6 @@
 import { createSlice } from "@reduxjs/toolkit";
+import axios from "axios";
+import { useNavigate as navigate } from "react-router-dom";
 
 const productSlice = createSlice({
   name: "products",
@@ -28,15 +30,26 @@ const productSlice = createSlice({
       });
       state.filteredProducts = filteredProducts;
     },
+    //Delete Single product
+
     removeProduct: (state, action) => {
-      console.log("delete");
       const productId = action.payload;
       state.allProducts = state.allProducts.filter(
-        (product) => product.id !== productId
+        (product) => product._id !== productId
       );
       state.filteredProducts = state.filteredProducts.filter(
-        (product) => product.id !== productId
+        (product) => product._id !== productId
       );
+      // Api call
+      axios
+        .delete(`http://localhost:9002/seller/products/${productId}`)
+        .then((response) => {
+          console.log("Product deleted successfully:", productId);
+          // navigate("/home");
+        })
+        .catch((error) => {
+          console.error("Failed to delete product:", error);
+        });
     },
   },
 });

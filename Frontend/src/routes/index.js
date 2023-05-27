@@ -11,6 +11,7 @@ import UserLoginPage from "../pages/User/UserLoginPage";
 import Location from "../components/api/location/Location";
 import ProductPage from "../pages/Seller/ProductPage";
 import HomePage from "../pages/Home";
+import EditProduct from "../pages/Seller/EditProduct";
 
 const Routes = () => {
   const [seller, setLoginSeller] = useState({});
@@ -49,6 +50,7 @@ const Routes = () => {
         // { path: '/products', element: <ProductPage /> },
         { path: "/addmart", element: <AddMart /> },
         { path: "/addproduct", element: <AddNewProduct /> },
+        { path: "/home/productedit/:id", element: <EditProduct /> },
         { path: "/location", element: <Location /> },
       ],
     },

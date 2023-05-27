@@ -1,92 +1,91 @@
 import React, { useState } from "react";
-import { Link } from "react-router-dom";
-import ProductButton from "../../components/mui/Buttons/ProductButton";
-import { Box, Grid, Avatar, Stack } from "@mui/material";
-import { centerBox, fieldBox, field } from "./../../assests/css/AddMartCss";
-import AddPhotoAlternateIcon from "@mui/icons-material/AddPhotoAlternate";
+import { Box, Grid, Avatar } from "@mui/material";
 
+import AddPhotoAlternateIcon from "@mui/icons-material/AddPhotoAlternate";
 import CancelButton from "../../components/mui/Buttons/CancelButton";
 import AddMartTypography from "../../components/mui/Typography/AddMartTypography";
 import AddMartTextField from "../../components/mui/TextField/AddMartTextField";
 import AddButton from "../../components/mui/Buttons/AddButton";
+import { boxstyle } from "../../assests/css/MidBoxStyle";
+import { fieldBox } from "../../assests/css/AddMartCss";
+import { useNavigate, useParams } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-import { useNavigate } from "react-router-dom";
 
-import axios from "axios";
-
-const AddNewProduct = () => {
+const EditProduct = () => {
   const navigate = useNavigate();
+  const params = useParams();
   const dispatch = useDispatch();
+  const allProducts = useSelector((state) => state.products.allProducts);
+  console.log(allProducts);
+
+  console.log(params.id);
+
+  const [productURL, setProductURL] = useState("");
+
   const [product, setProduct] = useState({
     name: "",
     description: "",
-    price: 0,
-    quantity: 0,
-    image: null,
+    quantity: "",
+    price: "",
+    image: "",
   });
-  const [productURL, setProductURL] = useState("");
+
   const handleChange = (e) => {
     const { name, value, files } = e.target;
     setProduct({
       ...product,
       [name]: value,
     });
-
     if (name === "image" && files.length > 0) {
       const file = e.target.files[0];
-      setProduct((product) => ({
+      setProduct({
         ...product,
         image: file,
-      }));
+      });
       setProductURL(URL.createObjectURL(file));
     }
   };
+
   const handleImageIconClick = () => {
     document.getElementById("image-input").click();
   };
 
-  const handleSubmit = async (e) => {
-    const { name, description, price, quantity, image } = product;
-
-    if (name && description && price && quantity && image) {
-      const formData = new FormData();
-      formData.append("name", name);
-      formData.append("description", description);
-      formData.append("price", price);
-      formData.append("quantity", quantity);
-      formData.append("image", image);
-      try {
-        const response = await axios.post(
-          "http://localhost:9002/seller/products/addproduct",
-          formData
-        );
-        alert(response.data.message);
-        console.log(response.data);
-        navigate("/home");
-      } catch (error) {
-        console.error("Error occurred while adding the product:", error);
-        alert("Error: Couldn't add Product!");
-      }
-    } else {
-      alert("All Fields Reiquired");
-    }
+  const handleSubmit = (e) => {
+    console.log("submit button clicked");
   };
 
+  const handleCancel = () => {
+    console.log("Cancel button clicked");
+    navigate("/home");
+  };
   return (
-    <Box sx={centerBox}>
-      <Box sx={fieldBox}>
-        <Stack spacing={2}>
+    <Box
+      sx={{
+        position: "absolute",
+        top: "50%",
+        left: "50%",
+        transform: "translate(-50%, -50%)",
+        width: "35vw",
+        height: "70vh",
+        p: 5,
+        boxShadow: 24,
+        borderRadius: 3,
+        backgroundColor: "#FEFEFE",
+      }}
+    >
+      <Box>
+        <Grid container>
           <Grid container spacing={2}>
             <Grid item xs={12} lg={12} sx={{ marginBottom: 3 }}>
               <AddMartTypography
-                variant="h6"
+                variant="h5"
                 style={{ textAlign: "center", fontWeight: "bold" }}
               >
-                Add Product
+                Edit Product
               </AddMartTypography>
             </Grid>
             {/* Name */}
-            <Grid item xs={12} lg={5} sx={field}>
+            <Grid item xs={12} lg={5}>
               <AddMartTypography>Name*</AddMartTypography>
             </Grid>
             <Grid item xs={12} lg={7}>
@@ -97,7 +96,7 @@ const AddNewProduct = () => {
               ></AddMartTextField>
             </Grid>
             {/* Description */}
-            <Grid item xs={12} lg={5} sx={field}>
+            <Grid item xs={12} lg={5}>
               <AddMartTypography>Description*</AddMartTypography>
             </Grid>
             <Grid item xs={12} lg={7}>
@@ -108,7 +107,7 @@ const AddNewProduct = () => {
               ></AddMartTextField>
             </Grid>
             {/* Price */}
-            <Grid item xs={12} lg={5} sx={field}>
+            <Grid item xs={12} lg={5}>
               <AddMartTypography>Quantity*</AddMartTypography>
             </Grid>
             <Grid item xs={12} lg={7}>
@@ -120,7 +119,7 @@ const AddNewProduct = () => {
               ></AddMartTextField>
             </Grid>
             {/* Quantity */}
-            <Grid item xs={12} lg={5} sx={field}>
+            <Grid item xs={12} lg={5}>
               <AddMartTypography>Price*</AddMartTypography>
             </Grid>
             <Grid item xs={12} lg={7}>
@@ -132,12 +131,12 @@ const AddNewProduct = () => {
               ></AddMartTextField>
             </Grid>
             {/* Insert Image */}
-            <Grid item xs={12} lg={5} sx={field}>
+            <Grid item xs={12} lg={5}>
               <AddMartTypography>Ad Image*</AddMartTypography>
             </Grid>
             <Grid item xs={12} lg={7}>
               <Avatar
-                sx={{ backgroundColor: "transparent", p: 5, margin: "auto" }}
+                sx={{ backgroundColor: "transparent", p: 2, margin: "auto" }}
                 onClick={handleImageIconClick}
               >
                 <AddPhotoAlternateIcon
@@ -154,11 +153,10 @@ const AddNewProduct = () => {
                 // accept="file, image/png, image/jpeg, image/webp, image/jpg"
                 style={{ display: "none" }}
               />
-
               {productURL && (
                 <Box
                   sx={{
-                    height: 300,
+                    height: 220,
                     display: "flex",
                     alignItems: "center",
                     justifyContent: "center",
@@ -170,25 +168,27 @@ const AddNewProduct = () => {
                     src={productURL}
                     alt="Product"
                     style={{
-                      width: "100%",
+                      width: "80%",
                       height: "100%",
-                      objectFit: "cover",
+                      backgroundSize: 200,
+                      //   objectFit: "cover",
                     }}
                   />
                 </Box>
               )}
             </Grid>
             <Grid item xs={6} lg={6} sx={{ mt: 4, textAlign: "right" }}>
-              <CancelButton>Cancel</CancelButton>
+              <CancelButton variant="contained" onClick={handleCancel}>
+                Cancel
+              </CancelButton>
             </Grid>
             <Grid item xs={6} lg={6} sx={{ mt: 4, textAlign: "right" }}>
-              <AddButton onClick={handleSubmit}>Add Product</AddButton>
+              <AddButton onClick={handleSubmit}>Updata</AddButton>
             </Grid>
           </Grid>
-        </Stack>
+        </Grid>
       </Box>
     </Box>
   );
 };
-
-export default AddNewProduct;
+export default EditProduct;
