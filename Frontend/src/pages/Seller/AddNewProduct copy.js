@@ -22,9 +22,8 @@ const AddNewProduct = () => {
     description: "",
     price: 0,
     quantity: 0,
-    image: "",
+    image: null,
   });
-  //   const [file, setFile] = useState();
   const [productURL, setProductURL] = useState("");
   const handleChange = (e) => {
     const { name, value, files } = e.target;
@@ -32,124 +31,49 @@ const AddNewProduct = () => {
       ...product,
       [name]: value,
     });
+
     if (name === "image" && files.length > 0) {
-      // const selectedImg = ImagetoBase64(e.target.files[0]);
-      const selectedURL = e.target.files[0];
-      const reader = new FileReader();
-      reader.onload = () => {
-        const selectedImg = reader.result;
-        console.log(typeof selectedImg);
-        debugger;
-        setProduct({
-          ...product,
-          image: selectedImg,
-        });
-        setProductURL(URL.createObjectURL(selectedURL));
-      };
-      reader.readAsDataURL(files[0]);
-    } else if (name === "name" && value === "") {
-      return "Name is required";
+      const file = e.target.files[0];
+      setProduct((product) => ({
+        ...product,
+        image: file,
+      }));
+      setProductURL(URL.createObjectURL(file));
     }
   };
-  // const handleChange = (e) => {
-  //   const { name, value, files } = e.target;
-  //   setProduct({
-  //     ...product,
-  //     [name]: value,
-  //   });
-  //   if (name === "image" && files.length > 0) {
-  //     const selectedFile = e.target.files[0];
-
-  //     console.log(typeof selectedFile);
-  //     setProduct({
-  //       ...product,
-  //       image: selectedFile,
-  //     });
-  //     setProductURL(URL.createObjectURL(selectedFile));
-  //   } else if (name === "name" && value === "") {
-  //     return "Name is required";
-  //   }
-  // };
-
-  //   const { name, value, files } = e.target;
-  //   setProduct({
-  //     ...product,
-  //     [name]: value,
-  //   });
-  //   if (name === "image" && files.length > 0) {
-  //     // const selectedImg = ImagetoBase64(e.target.files[0]);
-  //     const selectedURL = e.target.files[0];
-  //     const reader = new FileReader();
-  //     reader.onload = () => {
-  //       const selectedImg = reader.result;
-  //       setProduct({
-  //         ...product,
-  //         image: selectedImg,
-  //       });
-  //       setProductURL(URL.createObjectURL(selectedURL));
-  //     };
-  //     reader.readAsDataURL(files[0]);
-  //   } else if (name === "name" && value === "") {
-  //     return "Name is required";
-  //   }
-  // };
-
-  // handle click on image icon
   const handleImageIconClick = () => {
     document.getElementById("image-input").click();
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     const { name, description, price, quantity, image } = product;
-    console.log(typeof image);
-    debugger;
 
     if (name && description && price && quantity && image) {
+      const formData = new FormData();
+      formData.append("name", name);
+      formData.append("description", description);
+      formData.append("price", price);
+      formData.append("quantity", quantity);
+      formData.append("image", image);
       try {
-        const formData = new FormData();
-        formData.append("name", name);
-        formData.append("description", description);
-        formData.append("price", price);
-        formData.append("quantity", quantity);
-        formData.append("image", image);
-        // formData.append("upload_preset", "productsimg");
-        // formData.append("cloud_name", "dg2hp4fba");
-        debugger;
-        // axios
-        //   .post("https://api.cloudinary.com/v1_1/dg2hp4fba/upload")
-        //   //  {
-        //   //   method: "post",
-        //   //   body: data,
-        //   // })
-        //   .then((res) => res.json())
-        //   .then((data) => {
-        //     console.log(data);
-        //   })
-        //   .catch((err) => console.log(err));
-
-        console.log(typeof formData);
-        axios
-          .post("http://localhost:9002/seller/products/addproduct", formData)
-          .then((res) => {
-            alert("Successfully Added Product!", res.data);
-            console.log(res.data);
-            // navigate("/home");
-          })
-          .catch((err) => {
-            alert("Api Catch");
-          });
+        const response = await axios.post(
+          "http://localhost:9002/seller/products/addproduct",
+          formData
+        );
+        alert(response.data.message);
+        console.log(response.data);
+        navigate("/home");
       } catch (error) {
         console.error("Error occurred while adding the product:", error);
-        alert("try catch");
+        alert("Error: Couldn't add Product!");
       }
     } else {
-      alert("Please fill in all fields");
+      alert("All Fields Reiquired");
     }
   };
 
   return (
     <Box sx={centerBox}>
-      {/* <Box sx={centerBox} component="form"> */}
       <Box sx={fieldBox}>
         <Stack spacing={2}>
           <Grid container spacing={2}>
@@ -227,28 +151,38 @@ const AddNewProduct = () => {
                 name="image"
                 type="file"
                 onChange={handleChange}
-                accept="file, image/png, image/jpeg, image/webp, image/jpg"
+                // accept="file, image/png, image/jpeg, image/webp, image/jpg"
                 style={{ display: "none" }}
               />
 
               {productURL && (
-                <img
-                  src={productURL}
-                  alt="Product"
-                  style={{ width: "220px" }}
-                />
+                <Box
+                  sx={{
+                    height: 300,
+                    display: "flex",
+                    alignItems: "center",
+                    justifyContent: "center",
+                    overflow: "hidden",
+                    borderRadius: 5,
+                  }}
+                >
+                  <img
+                    src={productURL}
+                    alt="Product"
+                    style={{
+                      width: "100%",
+                      height: "100%",
+                      objectFit: "cover",
+                    }}
+                  />
+                </Box>
               )}
             </Grid>
-            <Grid item xs={6} lg={6} sx={{ textAlign: "right" }}>
+            <Grid item xs={6} lg={6} sx={{ mt: 4, textAlign: "right" }}>
               <CancelButton>Cancel</CancelButton>
             </Grid>
-            <Grid item xs={6} lg={6} sx={{ textAlign: "right" }}>
-              <AddButton
-                onClick={handleSubmit}
-                // sx={{ bgcolor: "#171E39", height: 30, fontSize: 11 }}
-              >
-                Add Product
-              </AddButton>
+            <Grid item xs={6} lg={6} sx={{ mt: 4, textAlign: "right" }}>
+              <AddButton onClick={handleSubmit}>Add Product</AddButton>
             </Grid>
           </Grid>
         </Stack>

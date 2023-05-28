@@ -5,6 +5,7 @@ const {
   AddProduct,
   fetchAllProducts,
   deleteProduct,
+  EditProduct,
 } = require("../Controllers/ProductController");
 
 // router.post("/addproduct", AddProduct);
@@ -14,5 +15,6 @@ router.post("/addproduct", upload.single("image"), AddProduct);
 router.get("/", fetchAllProducts);
 
 router.delete("/:id", deleteProduct);
+router.put("edit/:id", EditProduct);
 
 module.exports = router;

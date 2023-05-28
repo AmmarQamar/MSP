@@ -1,79 +1,14 @@
-import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
+import { createSlice } from "@reduxjs/toolkit";
 import axios from "axios";
 import { useNavigate as navigate } from "react-router-dom";
-
-//Fetch All Products Async
-export const fetchAllProducts = createAsyncThunk(
-  "seller/fetchAllProducts",
-  async () => {
-    const response = await axios.get("http://localhost:9002/seller/products");
-    return response.data;
-  }
-);
-//new product async
-export const addproduct = createAsyncThunk(
-  "addproduct",
-  async (data, rejectWithValue) => {
-    try {
-      const response = await axios.post(
-        "http://localhost:9002/seller/products/addproduct",
-        data
-      );
-
-      alert(response.data.message);
-      console.log(response.data);
-      return response.data;
-    } catch (error) {
-      console.error("Error occurred while adding the product:", error);
-      return rejectWithValue("Error: Couldn't add Product!");
-    }
-  }
-);
-
-export const editProduct = createAsyncThunk("editProduct", async (id, data) => {
-  try {
-    const response = await axios.put(
-      `http://localhost:9002/seller/products/edit/${id}`,
-      data
-    );
-    const data = response.data;
-    // dispatch();
-    navigate("/home");
-  } catch (err) {
-    console.log(err);
-  }
-});
-// );
 
 const productSlice = createSlice({
   name: "products",
   initialState: {
-    loading: false,
-    products: [],
     allProducts: [],
     filteredProducts: [],
     searchQuery: "",
   },
-
-  extraReducers: (builder) => {
-    //fetch all products
-    builder
-      .addCase(fetchAllProducts.fulfilled, (state, action) => {
-        state.allProducts = action.payload;
-      })
-      .addCase(addproduct.pending, (state) => {
-        state.loading = true;
-      })
-      .addCase(addproduct.fulfilled, (state, action) => {
-        state.loading = false;
-        state.allProducts.push(action.payload);
-      })
-      .addCase(addproduct.rejected, (state, action) => {
-        state.loading = false;
-        state.allProducts = action.payload;
-      });
-  },
-
   reducers: {
     setAllProducts: (state, action) => {
       state.allProducts = action.payload;

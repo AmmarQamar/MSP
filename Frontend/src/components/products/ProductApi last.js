@@ -18,7 +18,6 @@ import {
   removeProduct,
   setAllProducts,
   showAllProducts,
-  fetchAllProducts,
 } from "../../redux/Product/ProductSlice";
 import SearchProduct from "../navbar/SearchProduct";
 import axios from "axios";
@@ -42,10 +41,24 @@ const ProductsApi = () => {
     setOpen(false);
   };
 
+  const fetchProducts = async () => {
+    const res = axios
+      .get("http://localhost:9002/seller/products")
+      .then((res) => {
+        const data = res.data;
+        // console.log(data);
+        // console.log(typof data);
+        // debugger;
+        dispatch(setAllProducts(data));
+        dispatch(showAllProducts());
+      })
+      .catch((err) => {
+        alert(err.message);
+      });
+  };
   useEffect(() => {
-    dispatch(fetchAllProducts());
+    fetchProducts();
   }, [dispatch]);
-
   const handleDelete = (productId) => {
     dispatch(removeProduct(productId));
   };
@@ -113,21 +126,20 @@ const ProductsApi = () => {
           ))
         : allProducts.map((product) => (
             <Grid item key={product._id} xs={6} md={4} lg={3}>
-              <Card sx={{ maxWidth: 330, height: 370 }}>
+              <Card
+                sx={{ maxWidth: 330, height: 370 }}
+                // src={`http://localhost:9002${product.image.url}`}
+              >
                 <CardMedia
                   component="img"
                   alt="product-image"
                   height="200px"
-                  // src={`http://localhost:9002${product.image.url}`}
-                  src={
-                    product.image && product.image.url
-                      ? `http://localhost:9002${product.image.url}`
-                      : ""
-                  }
+                  src={`http://localhost:9002${product.image.url}`}
                 />
                 <CardContent sx={{ mb: -1 }}>
                   <CardTypographyconst value={product.name} />
                   <CardTypographyconst value={product.description} />
+
                   <CardTypographyconst
                     value={product.price}
                     style={{ color: "grey" }}
@@ -150,8 +162,8 @@ const ProductsApi = () => {
                   {/* </Modal> */}
                   <ProductButton variant="outlined">
                     <ProductLink
-                      onClick={() => handleDelete(product._id)}
-                      // to="/addmart"
+                      // onClick={() => handleDelete(product._id)}
+                      to="/addmart"
                     >
                       Delete
                     </ProductLink>

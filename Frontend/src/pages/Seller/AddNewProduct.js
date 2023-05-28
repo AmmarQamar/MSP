@@ -13,6 +13,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 
 import axios from "axios";
+import { addproduct } from "../../redux/Product/ProductSlice";
 
 const AddNewProduct = () => {
   const navigate = useNavigate();
@@ -47,7 +48,6 @@ const AddNewProduct = () => {
 
   const handleSubmit = async (e) => {
     const { name, description, price, quantity, image } = product;
-
     if (name && description && price && quantity && image) {
       const formData = new FormData();
       formData.append("name", name);
@@ -55,18 +55,21 @@ const AddNewProduct = () => {
       formData.append("price", price);
       formData.append("quantity", quantity);
       formData.append("image", image);
-      try {
-        const response = await axios.post(
-          "http://localhost:9002/seller/products/addproduct",
-          formData
-        );
-        alert(response.data.message);
-        console.log(response.data);
-        navigate("/home");
-      } catch (error) {
-        console.error("Error occurred while adding the product:", error);
-        alert("Error: Couldn't add Product!");
-      }
+      debugger;
+      // async api call through redux
+      dispatch(addproduct(formData));
+      // try {
+      //   const response = await axios.post(
+      //     "http://localhost:9002/seller/products/addproduct",
+      //     formData
+      //   );
+      //   alert(response.data.message);
+      //   console.log(response.data);
+      navigate("/home");
+      // } catch (error) {
+      //   console.error("Error occurred while adding the product:", error);
+      //   alert("Error: Couldn't add Product!");
+      // }
     } else {
       alert("All Fields Reiquired");
     }
