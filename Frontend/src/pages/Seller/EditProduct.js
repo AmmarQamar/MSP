@@ -10,7 +10,7 @@ import { boxstyle } from "../../assests/css/MidBoxStyle";
 import { fieldBox } from "../../assests/css/AddMartCss";
 import { editBox, imgBox, img } from "../../assests/css/EditProduct";
 import {
-  editproduct,
+  editProduct,
   selectAllProducts,
   setAllProducts,
   showAllProducts,
@@ -24,18 +24,20 @@ const EditProduct = (productid) => {
   const params = useParams();
   const dispatch = useDispatch();
   console.log(productid);
-  debugger;
+  // debugger;
   const products = useSelector((state) => state.products.allProducts);
   const existingProduct = products.filter(
     (product) => product._id === params.id
   );
   console.log(existingProduct);
   const { _id, name, description, quantity, price, image } = existingProduct[0];
+  console.log(_id, name, description, quantity, price, image);
 
   const [productURL, setProductURL] = useState("");
 
   const [product, setProduct] = useState({
-    _id,
+    // _id,
+    _id: params.id,
     name,
     description,
     quantity,
@@ -65,14 +67,19 @@ const EditProduct = (productid) => {
   };
 
   const handleSubmit = async (e) => {
-    const { id, name, description, price, quantity, image } = product;
+    const { description, price, quantity, image } = product;
+    debugger;
+    console.log(_id, name, description, price, quantity);
+    console.log(_id);
     if (name && description && price && quantity && image) {
       const formData = new FormData();
+      formData.append("_id", params.id);
       formData.append("image", product.image);
       formData.append("name", product.name);
       formData.append("description", product.description);
       formData.append("price", product.price);
       formData.append("quantity", product.quantity);
+      // console.log(params.id);
       dispatch(editProduct(formData));
 
       // dispatch(

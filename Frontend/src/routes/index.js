@@ -6,7 +6,7 @@ import { SellerLogin } from "../pages/Seller/Seller_login";
 import AddNewProduct from "../pages/Seller/AddNewProduct";
 import { SellerRegister } from "../pages/Seller/Seller_Register";
 import { SellerLoggedInLayout } from "../layouts/SellerLoggedInLayout";
-import ErrorPage from "./error";
+// import ErrorPage from "./error";
 import UserLoginPage from "../pages/User/UserLoginPage";
 import Location from "../components/api/location/Location";
 import ProductPage from "../pages/Seller/ProductPage";
@@ -22,7 +22,7 @@ const Routes = () => {
 
       path: "/",
       element: <SellerLayout />,
-      errorElement: <ErrorPage />,
+      // errorElement: <ErrorPage />,
       children: [
         {
           path: "/",

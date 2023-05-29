@@ -15,6 +15,7 @@ const AddProduct = async (req, res) => {
       image,
     });
     await product.save();
+
     console.log("Product saved in the database");
     res.status(201).json({ message: "Product Saved Successfully" });
   } catch (err) {

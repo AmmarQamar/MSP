@@ -1,6 +1,8 @@
 // Seller Register
 const Seller = require("../Models/SellersModel/SellerRegistration");
 const Mart = require("../Models/SellersModel/MartModel");
+const jwt = require("jsonwebtoken");
+const secretkey = "signin";
 // const sellerLoginModel = require("../Models/SellersModel/Seller")
 const Seller_Register = async (req, res) => {
   console.log("Seller Register Controller works");
@@ -40,7 +42,12 @@ const Seller_Login = async (req, res) => {
   await Seller.findOne({ email: email })
     .then((seller) => {
       if (password === seller.password) {
-        res.send({ message: "Login Successfully" });
+        const token = jwt.sign({}, secretkey);
+        res.send({
+          message: "Login Successfully",
+          seller: seller,
+          token: token,
+        });
       } else {
         console.log("Password not Matched");
         res.send({ message: "Password incorrect" });

@@ -43,9 +43,15 @@ export const SellerLogin = ({ setLoginSeller }) => {
       axios
         .post("http://localhost:9002/seller/login", seller)
         .then((res) => {
-          alert(res.data.message);
-          setLoginSeller(res.data.seller);
-          navigate("/addmart");
+          if (res.data.message === "Password incorrect") {
+            alert("Invalid Password");
+          } else {
+            debugger;
+            setLoginSeller(res.data.seller);
+            console.log(res.data.token);
+
+            navigate("/addmart");
+          }
         })
         .catch((error) => {
           alert(error.message);

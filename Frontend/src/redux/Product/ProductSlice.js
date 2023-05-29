@@ -14,6 +14,8 @@ export const fetchAllProducts = createAsyncThunk(
 export const addproduct = createAsyncThunk(
   "addproduct",
   async (data, rejectWithValue) => {
+    debugger;
+    console.log(data);
     try {
       const response = await axios.post(
         "http://localhost:9002/seller/products/addproduct",
@@ -30,13 +32,17 @@ export const addproduct = createAsyncThunk(
   }
 );
 
-export const editProduct = createAsyncThunk("editProduct", async (id, data) => {
+export const editProduct = createAsyncThunk("editProduct", async (data) => {
+  console.log(data._id);
+  debugger;
   try {
+    // const id=data.
     const response = await axios.put(
-      `http://localhost:9002/seller/products/edit/${id}`,
+      `http://localhost:9002/seller/products/edit/${data._id}`,
       data
     );
-    const data = response.data;
+    const result = response.result;
+    ``````;
     // dispatch();
     navigate("/home");
   } catch (err) {
